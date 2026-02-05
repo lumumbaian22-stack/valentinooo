@@ -216,7 +216,7 @@ function startLoadingScreen() {
 // ==============================================
 // ROMANTIC BACKGROUND MUSIC
 // ==============================================
-let backgroundMusic = document.getElementById('backgroundMusic');
+let backgroundMusic = document.getElementById('backgroundMusic'); // Get the audio ELEMENT, not the file path
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
@@ -1131,6 +1131,7 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
 
 
 
