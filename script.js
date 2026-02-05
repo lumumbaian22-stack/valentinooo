@@ -39,13 +39,13 @@ let mediaGallery = [
     {
         id: 2,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
+        src: "media/ninth_image.jpeg",
         caption: "That day at the beach - the sunset matched your smile"
     },
     {
         id: 3,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
+        src: "media/first_image.jpeg",
         caption: "Our first anniversary dinner - you took my breath away"
     },
     {
@@ -216,7 +216,7 @@ function startLoadingScreen() {
 // ==============================================
 // ROMANTIC BACKGROUND MUSIC
 // ==============================================
-let backgroundMusic = document.getElementById('backgroundMusic');
+let backgroundMusic = document.getElementById('media/background_music.mp3');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
@@ -1131,4 +1131,5 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
 
