@@ -1,9 +1,9 @@
 // ==============================================
 // ELSY & LUMUMBA'S VALENTINE WEBSITE
 // ==============================================
-// Lumumba: TO ADD YOUR PHOTOS & VIDEOS:
+// Lumumba: TO ADD YOUR PHOTOS:
 // 1. Find the "mediaGallery" array below (around line 50-150)
-// 2. Replace the placeholder URLs with YOUR actual photo/video URLs
+// 2. Replace the placeholder URLs with YOUR actual photo URLs
 // 3. Update the captions with your special memories
 // 4. Change the secret password to your actual first date
 // ==============================================
@@ -20,9 +20,6 @@ let elsyResponse = {
 let clickCount = 0;
 let responseUnlocked = false;
 
-// Current media type (photo or video)
-let currentMediaType = "photo";
-
 // Current RSVP choice
 let currentRSVPChoice = null;
 
@@ -33,53 +30,40 @@ let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "media/first_image.jpeg",
+        src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
         caption: "Our first date - I was so nervous but you made it perfect"
     },
     {
         id: 2,
         type: "photo",
-        src: "media/ninth_image.jpeg",
+        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
         caption: "That day at the beach - the sunset matched your smile"
     },
     {
         id: 3,
         type: "photo",
-        src: "media/first_image.jpeg",
+        src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
         caption: "Our first anniversary dinner - you took my breath away"
     },
     {
         id: 4,
-        type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-having-fun-at-a-fair-7254-large.mp4",
-        caption: "That fun day at the fair - you winning me that teddy bear",
-        thumbnail: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop"
-    },
-    {
-        id: 5,
         type: "photo",
         src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
         caption: "Our weekend getaway - just you, me, and endless conversations"
     },
     {
-        id: 6,
-        type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-and-hugging-on-the-beach-7565-large.mp4",
-        caption: "Walking hand in hand on the beach at sunset",
-        thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&h=600&fit=crop"
-    },
-    {
-        id: 7,
+        id: 5,
         type: "photo",
         src: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop",
         caption: "That surprise birthday party I threw for you"
     },
     {
-        id: 8,
+        id: 6,
         type: "photo",
         src: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&h=600&fit=crop",
         caption: "Our first Christmas together - you made it magical"
     }
+    // ADD MORE PHOTOS HERE BY COPYING THE FORMAT ABOVE
 ];
 
 // ==============================================
@@ -216,72 +200,70 @@ function startLoadingScreen() {
 // ==============================================
 // ROMANTIC BACKGROUND MUSIC
 // ==============================================
-let backgroundMusic = document.getElementById('backgroundMusic'); // Get the audio ELEMENT, not the file path
+let backgroundMusic = document.getElementById('backgroundMusic');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
 function startBackgroundMusic() {
     backgroundMusic.volume = 0.3;
     
-    const playMusic = () => {
-        if (!isMusicPlaying) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    document.getElementById('musicPlayer').classList.add('playing');
-                    document.getElementById('musicPlayer').classList.remove('paused');
-                    showNotification("Romantic music started 🎵");
-                })
-                .catch(e => {
-                    console.log("Autoplay prevented");
-                    showNotification("Click anywhere to start romantic music 🎵");
-                });
-        }
-    };
+    // Set initial state - music is paused
+    const musicPlayer = document.getElementById('musicPlayer');
+    musicPlayer.classList.remove('playing');
+    musicPlayer.classList.add('paused');
     
-    playMusic();
+    // Show instruction to user
+    showNotification("Click the music button to start romantic music 🎵");
     
-  const musicPlayer = document.getElementById('musicPlayer');
-
-// Show initial state
-musicPlayer.classList.remove('playing');
-musicPlayer.classList.add('paused');
-
-musicPlayer.addEventListener('click', (e) => {
-    e.stopPropagation();
-    
-    if (isMusicPlaying) {
-        backgroundMusic.pause();
-        musicPlayer.classList.remove('playing');
-        musicPlayer.classList.add('paused');
-        showNotification("Music paused ⏸️");
-        isMusicPlaying = false;
-    } else {
-        backgroundMusic.play()
-            .then(() => {
-                isMusicPlaying = true;
-                musicPlayer.classList.add('playing');
-                musicPlayer.classList.remove('paused');
-                showNotification("Music playing 🎵");
-            })
-            .catch(err => {
-                showNotification("Click anywhere first, then music button");
-            });
-    }
-});
-        }
-        isMusicPlaying = !isMusicPlaying;
-    });
-    
-    document.addEventListener('click', () => {
-        if (!isMusicPlaying) {
+    // Music player click handler
+    musicPlayer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (isMusicPlaying) {
+            // Pause the music
+            backgroundMusic.pause();
+            musicPlayer.classList.remove('playing');
+            musicPlayer.classList.add('paused');
+            showNotification("Music paused ⏸️");
+            isMusicPlaying = false;
+        } else {
+            // Try to play the music
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
+                    showNotification("Romantic music playing 🎵");
+                })
+                .catch(err => {
+                    console.log("Music play error:", err);
+                    showNotification("Click anywhere on the page first, then try the music button");
+                    
+                    // Set up a one-time click listener to try again
+                    const retryPlay = () => {
+                        backgroundMusic.play()
+                            .then(() => {
+                                isMusicPlaying = true;
+                                musicPlayer.classList.add('playing');
+                                musicPlayer.classList.remove('paused');
+                                showNotification("Music playing now! 🎵");
+                            })
+                            .catch(e => {
+                                console.log("Still couldn't play:", e);
+                                showNotification("Please click the music button again");
+                            });
+                        document.removeEventListener('click', retryPlay);
+                    };
+                    
+                    document.addEventListener('click', retryPlay, { once: true });
                 });
         }
+    });
+    
+    // Also allow clicking anywhere on the page to enable audio
+    document.addEventListener('click', () => {
+        // This empty handler helps browsers allow audio after user interaction
+        console.log("User interacted with page - audio should be enabled now");
     }, { once: true });
 }
 
@@ -299,7 +281,7 @@ function initializeEverything() {
     setupSecretActivation();
     checkIfUnlocked();
     setupNavigation();
-    setupMediaUpload();
+    setupMediaModal();
     initializeMediaGallery();
     
     // Check for saved response on load
@@ -406,16 +388,10 @@ function saveResponse(accepted, customMessage = "") {
 }
 
 // ==============================================
-// MEDIA GALLERY FUNCTIONS
+// MEDIA GALLERY FUNCTIONS (STATIC - NO UPLOAD)
 // ==============================================
 function initializeMediaGallery() {
     const gallery = document.getElementById('mediaGallery');
-    
-    // Load saved media from localStorage if available
-    const savedMedia = localStorage.getItem('elsyLumumbaMedia');
-    if (savedMedia) {
-        mediaGallery = JSON.parse(savedMedia);
-    }
     
     // Clear gallery
     gallery.innerHTML = '';
@@ -433,15 +409,6 @@ function initializeMediaGallery() {
                     <img src="${media.src}" alt="Memory photo" loading="lazy">
                 </div>
             `;
-        } else if (media.type === 'video') {
-            const thumbnail = media.thumbnail || media.src;
-            mediaContent = `
-                <div class="media-content">
-                    <video preload="metadata" poster="${thumbnail}">
-                        <source src="${media.src}" type="video/mp4">
-                    </video>
-                </div>
-            `;
         }
         
         mediaElement.innerHTML = `
@@ -453,29 +420,6 @@ function initializeMediaGallery() {
         mediaElement.addEventListener('click', () => openMediaModal(media));
         gallery.appendChild(mediaElement);
     });
-    
-    // Add "add media" button to gallery
-    const addMediaElement = document.createElement('div');
-    addMediaElement.className = 'media-frame';
-    addMediaElement.style.display = 'flex';
-    addMediaElement.style.flexDirection = 'column';
-    addMediaElement.style.alignItems = 'center';
-    addMediaElement.style.justifyContent = 'center';
-    addMediaElement.style.cursor = 'pointer';
-    addMediaElement.style.background = 'linear-gradient(135deg, #fff9f9, #ffeaea)';
-    addMediaElement.innerHTML = `
-        <div style="color: var(--primary-red); font-size: 4rem; margin-bottom: 1.5rem;">
-            <i class="fas fa-plus-circle"></i>
-        </div>
-        <div style="color: var(--primary-red); font-size: 1.2rem; font-weight: 600; text-align: center;">
-            Add Our Memory
-        </div>
-        <div style="color: #666; font-size: 0.9rem; margin-top: 0.5rem; text-align: center;">
-            Click to upload a photo or video
-        </div>
-    `;
-    addMediaElement.addEventListener('click', () => showUploadSection());
-    gallery.appendChild(addMediaElement);
 }
 
 function openMediaModal(media) {
@@ -501,14 +445,6 @@ function openMediaModal(media) {
             }
         };
         modalContent.appendChild(img);
-    } else if (media.type === 'video') {
-        const video = document.createElement('video');
-        video.src = media.src;
-        video.controls = true;
-        video.autoplay = true;
-        video.style.maxWidth = '90vw';
-        video.style.maxHeight = '80vh';
-        modalContent.appendChild(video);
     }
     
     modalCaption.textContent = media.caption;
@@ -516,210 +452,15 @@ function openMediaModal(media) {
     playNotificationSound();
 }
 
-function showUploadSection() {
-    const uploadSection = document.getElementById('uploadSection');
-    uploadSection.classList.add('active');
-    
-    setMediaType('photo');
-    uploadSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function setMediaType(type) {
-    currentMediaType = type;
-    
-    document.querySelectorAll('.type-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.type === type) {
-            btn.classList.add('active');
-        }
-    });
-    
-    const fileInput = document.getElementById('mediaUpload');
-    if (type === 'photo') {
-        fileInput.accept = "image/*";
-        fileInput.setAttribute('accept', 'image/*');
-    } else {
-        fileInput.accept = "video/*";
-        fileInput.setAttribute('accept', 'video/*');
-    }
-    
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('videoPreview').style.display = 'none';
-    fileInput.value = '';
-}
-
-function cancelUpload() {
-    const uploadSection = document.getElementById('uploadSection');
-    uploadSection.classList.remove('active');
-    
-    document.getElementById('mediaCaption').value = '';
-    document.getElementById('mediaUpload').value = '';
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('imagePreview').src = '';
-    document.getElementById('videoPreview').style.display = 'none';
-    document.getElementById('videoPreview').src = '';
-}
-
-function uploadMedia() {
-    const caption = document.getElementById('mediaCaption').value.trim();
-    const fileInput = document.getElementById('mediaUpload');
-    
-    if (!fileInput.files[0]) {
-        showNotification("Please choose a file first! 📁");
-        return;
-    }
-    
-    if (!caption) {
-        showNotification("Please add a caption for this memory! 💭");
-        return;
-    }
-    
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        const mediaData = e.target.result;
-        
-        if (currentMediaType === 'photo') {
-            addMediaToGallery(mediaData, caption, 'photo');
-        } else {
-            createVideoThumbnail(file, function(thumbnailData) {
-                addMediaToGallery(mediaData, caption, 'video', thumbnailData);
-            });
-        }
-    };
-    
-    if (currentMediaType === 'photo') {
-        reader.readAsDataURL(file);
-    } else {
-        reader.readAsDataURL(file);
-    }
-}
-
-function createVideoThumbnail(file, callback) {
-    const video = document.createElement('video');
-    video.preload = 'metadata';
-    
-    video.onloadedmetadata = function() {
-        video.currentTime = 0.1;
-    };
-    
-    video.onseeked = function() {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        const thumbnailData = canvas.toDataURL('image/jpeg');
-        callback(thumbnailData);
-    };
-    
-    video.src = URL.createObjectURL(file);
-}
-
-function addMediaToGallery(src, caption, type, thumbnail = null) {
-    const newMedia = {
-        id: Date.now(),
-        type: type,
-        src: src,
-        caption: caption,
-        thumbnail: thumbnail
-    };
-    
-    mediaGallery.push(newMedia);
-    
-    try {
-        localStorage.setItem('elsyLumumbaMedia', JSON.stringify(mediaGallery));
-    } catch (e) {
-        if (e.name === 'QuotaExceededError') {
-            showNotification("Storage full! Oldest memories will be removed.");
-            mediaGallery.shift();
-            localStorage.setItem('elsyLumumbaMedia', JSON.stringify(mediaGallery));
-        }
-    }
-    
-    initializeMediaGallery();
-    cancelUpload();
-    
-    const mediaTypeText = type === 'photo' ? 'Photo' : 'Video';
-    showNotification(`${mediaTypeText} added to our gallery! ${type === 'photo' ? '📸' : '🎥'}💖`);
-    
-    for (let i = 0; i < 10; i++) {
-        setTimeout(() => createHeartEffect(), i * 100);
-    }
-    
-    playNotificationSound();
-}
-
-function setupMediaUpload() {
-    const fileInput = document.getElementById('mediaUpload');
-    const imagePreview = document.getElementById('imagePreview');
-    const videoPreview = document.getElementById('videoPreview');
-    
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files[0]) {
-            const file = this.files[0];
-            const reader = new FileReader();
-            
-            if (currentMediaType === 'photo') {
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    videoPreview.style.display = 'none';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                const videoURL = URL.createObjectURL(file);
-                videoPreview.src = videoURL;
-                videoPreview.style.display = 'block';
-                imagePreview.style.display = 'none';
-                
-                reader.readAsDataURL(file);
-            }
-        }
-    });
-    
+function setupMediaModal() {
     document.getElementById('closeModal').addEventListener('click', function() {
         document.getElementById('mediaModal').style.display = 'none';
-        const video = document.querySelector('#mediaModal video');
-        if (video) {
-            video.pause();
-        }
-    });
-    
-    document.getElementById('addMediaBtn').addEventListener('click', function() {
-        changePage('gallery');
-        setTimeout(() => showUploadSection(), 500);
-    });
-    
-    document.querySelectorAll('.type-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            setMediaType(this.dataset.type);
-        });
     });
     
     document.getElementById('mediaModal').addEventListener('click', function(e) {
         if (e.target === this) {
             this.style.display = 'none';
-            const video = document.querySelector('#mediaModal video');
-            if (video) {
-                video.pause();
-            }
         }
-    });
-    
-    document.getElementById('toggleInstructionsBtn').addEventListener('click', function() {
-        const instructionsPanel = document.getElementById('instructionsPanel');
-        instructionsPanel.classList.toggle('active');
-        
-        if (instructionsPanel.classList.contains('active')) {
-            this.innerHTML = '<i class="fas fa-times-circle"></i> Close Instructions';
-        } else {
-            this.innerHTML = '<i class="fas fa-info-circle"></i> How to Add Your Photos & Videos';
-        }
-        
-        playNotificationSound();
     });
 }
 
@@ -993,17 +734,6 @@ function checkPassword() {
 }
 
 // ==============================================
-// MEMORY FUNCTION
-// ==============================================
-function addMemory() {
-    const memory = prompt("Elsy, what's a special memory you'd like to add to our story?");
-    if (memory && memory.trim() !== "") {
-        showNotification("Thank you for sharing that beautiful memory! 💖");
-        playNotificationSound();
-    }
-}
-
-// ==============================================
 // VISUAL EFFECTS
 // ==============================================
 function createHeartEffect() {
@@ -1141,11 +871,4 @@ function showNotification(message) {
 // ==============================================
 window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
-
 });
-
-
-
-
-
-
