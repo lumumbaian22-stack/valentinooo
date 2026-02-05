@@ -216,7 +216,7 @@ function startLoadingScreen() {
 // ==============================================
 // ROMANTIC BACKGROUND MUSIC
 // ==============================================
-let backgroundMusic = document.getElementById('media/background_music.mp3');
+let backgroundMusic = document.getElementById('backgroundMusic');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
@@ -233,7 +233,7 @@ function startBackgroundMusic() {
                     showNotification("Romantic music started 🎵");
                 })
                 .catch(e => {
-                    console.log("Autoplay prevented");
+                    console.log("Autoplay immediately");
                     showNotification("Click anywhere to start romantic music 🎵");
                 });
         }
@@ -1131,5 +1131,6 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
 
 
