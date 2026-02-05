@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,7 +50,7 @@
         }
         
         /* =========================================== */
-        /* CINEMATIC INTRO ANIMATION - PERFECTED */
+        /* CINEMATIC INTRO ANIMATION */
         /* =========================================== */
         .cinematic-intro {
             position: fixed;
@@ -91,21 +91,10 @@
         }
         
         @keyframes introHeartFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(0.8);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-                transform: translateY(90vh) rotate(90deg) scale(1);
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg) scale(0.8);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 1; transform: translateY(90vh) rotate(90deg) scale(1); }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg) scale(0.8); opacity: 0; }
         }
         
         .intro-content {
@@ -167,7 +156,7 @@
         }
         
         /* =========================================== */
-        /* PREMIUM LOADING SCREEN - PERFECTED */
+        /* PREMIUM LOADING SCREEN */
         /* =========================================== */
         .loading-screen {
             position: fixed;
@@ -200,26 +189,11 @@
         }
         
         @keyframes loadingHeartBeat {
-            0%, 100% { 
-                transform: scale(1); 
-                filter: brightness(1);
-            }
-            15% { 
-                transform: scale(1.25); 
-                filter: brightness(1.2);
-            }
-            30% { 
-                transform: scale(1); 
-                filter: brightness(1);
-            }
-            45% { 
-                transform: scale(1.25); 
-                filter: brightness(1.2);
-            }
-            60% { 
-                transform: scale(1); 
-                filter: brightness(1);
-            }
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            15% { transform: scale(1.25); filter: brightness(1.2); }
+            30% { transform: scale(1); filter: brightness(1); }
+            45% { transform: scale(1.25); filter: brightness(1.2); }
+            60% { transform: scale(1); filter: brightness(1); }
         }
         
         .loading-text {
@@ -251,14 +225,8 @@
         .loading-dot:nth-child(2) { animation-delay: -0.16s; }
         
         @keyframes loadingDotBounce {
-            0%, 80%, 100% { 
-                transform: scale(0); 
-                opacity: 0.5;
-            }
-            40% { 
-                transform: scale(1); 
-                opacity: 1;
-            }
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
         }
         
         .loading-progress-container {
@@ -284,10 +252,7 @@
             left: 0;
             width: 100px;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.4), 
-                transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: loadingGlow 2.5s ease-in-out infinite;
         }
         
@@ -297,7 +262,7 @@
         }
         
         /* =========================================== */
-        /* MAIN LAYOUT - PERFECTLY ALIGNED */
+        /* MAIN LAYOUT */
         /* =========================================== */
         .container {
             width: 100%;
@@ -307,7 +272,7 @@
         }
         
         /* =========================================== */
-        /* MUSIC PLAYER - PERFECTED */
+        /* MUSIC PLAYER */
         /* =========================================== */
         .music-player {
             position: fixed;
@@ -348,7 +313,7 @@
         }
         
         /* =========================================== */
-        /* SECRET ACTIVATION - PERFECTED */
+        /* SECRET ACTIVATION */
         /* =========================================== */
         .secret-activation {
             position: fixed;
@@ -385,14 +350,8 @@
         }
         
         @keyframes gentlePulse {
-            0%, 100% { 
-                transform: scale(1); 
-                opacity: 1;
-            }
-            50% { 
-                transform: scale(1.15); 
-                opacity: 0.9;
-            }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.9; }
         }
         
         .click-counter {
@@ -415,7 +374,7 @@
         }
         
         /* =========================================== */
-        /* NAVIGATION - PERFECTED */
+        /* NAVIGATION */
         /* =========================================== */
         .nav-container {
             width: 100%;
@@ -423,11 +382,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.98) 0%,
-                rgba(255, 255, 255, 0.95) 100%);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 205, 210, 0.5);
             box-shadow: 0 2px 20px rgba(183, 28, 28, 0.08);
         }
@@ -442,7 +398,6 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--light-red);
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
         
@@ -486,7 +441,7 @@
         }
         
         /* =========================================== */
-        /* PAGE LAYOUT - PERFECTED */
+        /* PAGE LAYOUT */
         /* =========================================== */
         .page-container {
             padding: 30px 0 60px;
@@ -503,18 +458,12 @@
         }
         
         @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* =========================================== */
-        /* WELCOME PAGE - PERFECTED */
+        /* WELCOME PAGE */
         /* =========================================== */
         .welcome-container {
             background: var(--white);
@@ -546,6 +495,15 @@
             margin-bottom: 1.5rem;
             animation: heartbeat 1.8s infinite;
             display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
         }
         
         .names-container {
@@ -610,7 +568,7 @@
         }
         
         /* =========================================== */
-        /* BUTTONS - PERFECTED */
+        /* BUTTONS */
         /* =========================================== */
         .love-btn {
             padding: 18px 38px;
@@ -642,10 +600,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.2), 
-                transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.7s;
         }
         
@@ -668,7 +623,7 @@
         }
         
         /* =========================================== */
-        /* STORY PAGE - PERFECTED */
+        /* STORY PAGE */
         /* =========================================== */
         .story-container {
             background: var(--white);
@@ -769,7 +724,7 @@
         }
         
         /* =========================================== */
-        /* GALLERY PAGE - PERFECTED */
+        /* GALLERY PAGE */
         /* =========================================== */
         .gallery-container {
             background: var(--white);
@@ -970,7 +925,7 @@
         }
         
         /* =========================================== */
-        /* MEDIA MODAL - PERFECTED */
+        /* MEDIA MODAL */
         /* =========================================== */
         .media-modal {
             position: fixed;
@@ -1043,7 +998,7 @@
         }
         
         /* =========================================== */
-        /* UPLOAD SECTION - PERFECTED */
+        /* UPLOAD SECTION */
         /* =========================================== */
         .upload-section {
             background: var(--white);
@@ -1151,7 +1106,7 @@
         }
         
         /* =========================================== */
-        /* MESSAGES PAGE - PERFECTED */
+        /* MESSAGES PAGE */
         /* =========================================== */
         .messages-container {
             background: var(--white);
@@ -1198,7 +1153,7 @@
         }
         
         /* =========================================== */
-        /* INVITATION PAGE - PERFECTED */
+        /* INVITATION PAGE - RESTORED WITH RESPONSE DISPLAY */
         /* =========================================== */
         .invitation-container {
             background: var(--white);
@@ -1319,16 +1274,30 @@
             box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
         }
         
+        /* RESPONSE DISPLAY - RESTORED */
         .rsvp-response {
             margin-top: 2rem;
             padding: 30px;
             border-radius: 20px;
             display: none;
             text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .response-success {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 2px solid #81c784;
+            color: #2E7D32;
+        }
+        
+        .response-declined {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 2px solid #e57373;
+            color: #c62828;
         }
         
         /* =========================================== */
-        /* SECRET PAGE - PERFECTED */
+        /* SECRET PAGE */
         /* =========================================== */
         .secret-container {
             background: var(--white);
@@ -1381,7 +1350,7 @@
         }
         
         /* =========================================== */
-        /* RESPONSE TRACKER - PERFECTED */
+        /* RESPONSE TRACKER - RESTORED WITH FULL FUNCTIONALITY */
         /* =========================================== */
         .response-container {
             background: var(--white);
@@ -1417,6 +1386,7 @@
             color: var(--dark-purple);
         }
         
+        /* Elsy's Response Display in Tracker */
         .response-details {
             background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
             border-radius: 16px;
@@ -1424,6 +1394,7 @@
             margin-top: 2rem;
             border: 1px solid #bbdefb;
             text-align: left;
+            display: none;
         }
         
         .response-detail-item {
@@ -1446,6 +1417,9 @@
             flex: 1;
         }
         
+        /* =========================================== */
+        /* OTHER COMPONENTS */
+        /* =========================================== */
         .check-status-btn {
             padding: 18px 38px;
             font-size: 1.2rem;
@@ -1469,9 +1443,6 @@
             box-shadow: var(--shadow-lg);
         }
         
-        /* =========================================== */
-        /* SECRET UNLOCK ANIMATION */
-        /* =========================================== */
         .secret-unlock-animation {
             position: fixed;
             top: 0;
@@ -1507,9 +1478,6 @@
             margin-bottom: 2rem;
         }
         
-        /* =========================================== */
-        /* FLOATING HEARTS BACKGROUND */
-        /* =========================================== */
         .floating-hearts {
             position: fixed;
             width: 100%;
@@ -1528,25 +1496,12 @@
         }
         
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.5;
-            }
-            90% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
-        /* =========================================== */
-        /* NOTIFICATION - PERFECTED */
-        /* =========================================== */
         .notification {
             position: fixed;
             bottom: 30px;
@@ -1571,14 +1526,9 @@
         }
         
         @keyframes notificationSlideUp {
-            to {
-                transform: translateX(-50%) translateY(0);
-            }
+            to { transform: translateX(-50%) translateY(0); }
         }
         
-        /* =========================================== */
-        /* FOOTER - PERFECTED */
-        /* =========================================== */
         .footer {
             text-align: center;
             padding: 40px 20px;
@@ -1598,244 +1548,53 @@
         }
         
         /* =========================================== */
-        /* RESPONSIVE DESIGN - PERFECTED */
+        /* RESPONSIVE DESIGN */
         /* =========================================== */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
+            .container { padding: 0 15px; }
+            .nav-container { padding: 15px 0; }
+            .nav { padding: 8px; gap: 6px; border-radius: 14px; }
+            .nav-btn { padding: 12px 18px; font-size: 0.95rem; border-radius: 10px; }
+            .nav-btn i { font-size: 1.1rem; }
+            .welcome-container, .story-container, .gallery-container, .messages-container,
+            .invitation-container, .secret-container, .response-container {
+                padding: 40px 25px; border-radius: 20px;
             }
-            
-            .nav-container {
-                padding: 15px 0;
-            }
-            
-            .nav {
-                padding: 8px;
-                gap: 6px;
-                border-radius: 14px;
-            }
-            
-            .nav-btn {
-                padding: 12px 18px;
-                font-size: 0.95rem;
-                border-radius: 10px;
-            }
-            
-            .nav-btn i {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-container,
-            .story-container,
-            .gallery-container,
-            .messages-container,
-            .invitation-container,
-            .secret-container,
-            .response-container {
-                padding: 40px 25px;
-                border-radius: 20px;
-            }
-            
-            .names {
-                font-size: 3.2rem;
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .and {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 2.8rem;
-            }
-            
-            .welcome-heart {
-                font-size: 4rem;
-            }
-            
-            .intro-title {
-                font-size: 3.5rem;
-            }
-            
-            .intro-subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .memory-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .love-message {
-                font-size: 1.8rem;
-            }
-            
-            .date-time {
-                padding: 25px 20px;
-            }
-            
-            .date-time p:first-child {
-                font-size: 1.8rem;
-            }
-            
-            .date-time p:nth-child(2) {
-                font-size: 1.4rem;
-            }
-            
-            .rsvp-buttons {
-                gap: 15px;
-            }
-            
-            .rsvp-btn {
-                padding: 20px 30px;
-                font-size: 1.2rem;
-            }
-            
-            .music-player,
-            .secret-activation {
-                top: 20px;
-                width: 55px;
-                height: 55px;
-            }
-            
-            .secret-emoji {
-                font-size: 1.8rem;
-            }
-            
-            .music-icon {
-                font-size: 1.6rem;
-            }
-            
-            .add-media-btn {
-                bottom: 25px;
-                right: 25px;
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
-            }
+            .names { font-size: 3.2rem; flex-direction: column; gap: 5px; }
+            .and { font-size: 1.8rem; }
+            .section-title { font-size: 2.8rem; }
+            .welcome-heart { font-size: 4rem; }
+            .intro-title { font-size: 3.5rem; }
+            .intro-subtitle { font-size: 1.3rem; }
+            .memory-grid { grid-template-columns: 1fr; gap: 20px; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 25px; }
+            .love-message { font-size: 1.8rem; }
+            .date-time { padding: 25px 20px; }
+            .date-time p:first-child { font-size: 1.8rem; }
+            .date-time p:nth-child(2) { font-size: 1.4rem; }
+            .rsvp-buttons { gap: 15px; }
+            .rsvp-btn { padding: 20px 30px; font-size: 1.2rem; }
+            .music-player, .secret-activation { top: 20px; width: 55px; height: 55px; }
+            .secret-emoji { font-size: 1.8rem; }
+            .music-icon { font-size: 1.6rem; }
+            .add-media-btn { bottom: 25px; right: 25px; width: 60px; height: 60px; font-size: 2rem; }
         }
         
         @media (max-width: 480px) {
-            .intro-title {
-                font-size: 2.8rem;
-            }
-            
-            .intro-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .names {
-                font-size: 2.8rem;
-            }
-            
-            .section-title {
-                font-size: 2.4rem;
-            }
-            
-            .love-btn {
-                padding: 16px 30px;
-                font-size: 1.1rem;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .nav-btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .nav-btn span {
-                display: none;
-            }
-            
-            .nav-btn i {
-                font-size: 1.2rem;
-                margin: 0;
-            }
-            
-            .memory-card {
-                padding: 25px 20px;
-            }
-            
-            .media-content {
-                height: 220px;
-            }
-            
-            .upload-section {
-                padding: 30px 20px;
-            }
-            
-            .media-type-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .type-btn {
-                width: 100%;
-                max-width: 200px;
-                justify-content: center;
-            }
-            
-            .upload-actions {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .upload-actions .love-btn {
-                width: 100%;
-            }
+            .intro-title { font-size: 2.8rem; }
+            .intro-subtitle { font-size: 1.1rem; }
+            .names { font-size: 2.8rem; }
+            .section-title { font-size: 2.4rem; }
+            .love-btn { padding: 16px 30px; font-size: 1.1rem; width: 100%; max-width: 300px; }
+            .nav-btn { padding: 10px 15px; font-size: 0.9rem; }
+            .nav-btn span { display: none; }
+            .nav-btn i { font-size: 1.2rem; margin: 0; }
+            .memory-card { padding: 25px 20px; }
+            .media-content { height: 220px; }
         }
         
         @media (min-width: 1200px) {
-            .container {
-                max-width: 1140px;
-            }
-        }
-        
-        /* =========================================== */
-        /* UTILITY CLASSES */
-        /* =========================================== */
-        .text-center {
-            text-align: center;
-        }
-        
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mt-3 { margin-top: 3rem; }
-        .mt-4 { margin-top: 4rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-        .mb-3 { margin-bottom: 3rem; }
-        .mb-4 { margin-bottom: 4rem; }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .slide-up {
-            animation: slideUp 0.6s ease;
-        }
-        
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            .container { max-width: 1140px; }
         }
     </style>
 </head>
@@ -2090,6 +1849,7 @@
                             <!-- Photos and videos will be dynamically added here -->
                         </div>
                         
+                        <!-- Upload Section - RESTORED -->
                         <div class="upload-section" id="uploadSection">
                             <h3 class="upload-title">
                                 <i class="fas fa-cloud-upload-alt"></i>
@@ -2187,7 +1947,7 @@
                     </div>
                 </div>
                 
-                <!-- Page 5: Invitation -->
+                <!-- Page 5: Invitation - RESTORED WITH RESPONSE DISPLAY -->
                 <div class="page" id="invitation">
                     <div class="invitation-container">
                         <h2 class="section-title">You're Invited!</h2>
@@ -2241,7 +2001,7 @@
                             </div>
                         </div>
                         
-                        <!-- Response Display -->
+                        <!-- Response Display - RESTORED -->
                         <div class="rsvp-response" id="rsvpResponse"></div>
                     </div>
                 </div>
@@ -2284,7 +2044,7 @@
                     </div>
                 </div>
                 
-                <!-- Page 7: Response Tracker -->
+                <!-- Page 7: Response Tracker - RESTORED WITH FULL FUNCTIONALITY -->
                 <div class="page" id="response">
                     <div class="response-container">
                         <h2 class="section-title">Response Tracker 🔒</h2>
@@ -2295,20 +2055,21 @@
                         
                         <p style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center; line-height: 1.6;">
                             <strong>Secret Access Only!</strong><br>
-                            Only you (Lumumba) can see Elsy's actual response to your invitation.
+                            Only you (Lumumba) can see Elsy's response to your invitation.
                         </p>
                         
                         <div class="response-status" id="responseStatus">
                             <p>Checking Elsy's response status...</p>
                         </div>
                         
+                        <!-- Elsy's Response Display in Tracker -->
                         <div id="responseMessage" style="display: none;">
                             <div class="response-icon" id="responseIcon">💖</div>
                             <div class="response-message" id="responseText"></div>
-                            <div id="responseTime" style="color: #666; font-size: 1rem; margin-top: 1rem;"></div>
+                            <div id="responseTime" style="color: #666; font-size: 1rem;"></div>
                             
                             <!-- Elsy's Custom Message Display -->
-                            <div class="response-details" id="responseDetails" style="display: none;">
+                            <div class="response-details" id="responseDetails">
                                 <h3 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;">
                                     <i class="fas fa-comment-heart"></i>
                                     Elsy's Personal Message
@@ -2332,12 +2093,10 @@
                             </div>
                         </div>
                         
-                        <div class="text-center">
-                            <button class="check-status-btn" onclick="checkResponseStatus()">
-                                <i class="fas fa-sync-alt"></i>
-                                Check Response Status
-                            </button>
-                        </div>
+                        <button class="check-status-btn" onclick="checkResponseStatus()">
+                            <i class="fas fa-sync-alt"></i>
+                            Check Response Status
+                        </button>
                         
                         <div style="margin-top: 3rem; padding: 25px; background: linear-gradient(135deg, #fff5f5, #ffeaea); border-radius: 16px; border: 1px solid var(--light-red);">
                             <h3 style="color: var(--primary-red); margin-bottom: 1rem; text-align: center;">How it works:</h3>
@@ -2358,9 +2117,9 @@
         </div>
     </div>
 
-    <!-- Background Music -->
+    <!-- Background Music - Added Your Song -->
     <audio id="backgroundMusic" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-sunset-687.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_12cc7c8c67.mp3?filename=love-song-193048.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
@@ -2490,35 +2249,20 @@
                 loadingProgress.style.width = `${progress}%`;
                 
                 // Update loading text based on progress
-                if (progress < 20) {
-                    loadingText.textContent = loadingMessages[0];
-                } else if (progress < 40) {
-                    loadingText.textContent = loadingMessages[1];
-                } else if (progress < 60) {
-                    loadingText.textContent = loadingMessages[2];
-                } else if (progress < 80) {
-                    loadingText.textContent = loadingMessages[3];
-                } else {
-                    loadingText.textContent = loadingMessages[4];
-                }
+                if (progress < 20) loadingText.textContent = loadingMessages[0];
+                else if (progress < 40) loadingText.textContent = loadingMessages[1];
+                else if (progress < 60) loadingText.textContent = loadingMessages[2];
+                else if (progress < 80) loadingText.textContent = loadingMessages[3];
+                else loadingText.textContent = loadingMessages[4];
                 
                 if (progress >= 100) {
                     clearInterval(loadingInterval);
                     setTimeout(() => {
-                        // Hide loading screen
                         loadingScreen.style.opacity = '0';
                         loadingScreen.style.pointerEvents = 'none';
-                        
-                        // Show website content
                         document.getElementById('websiteContent').style.display = 'block';
-                        
-                        // Start background music softly
                         startBackgroundMusic();
-                        
-                        // Create floating hearts
                         createFloatingHearts();
-                        
-                        // Initialize everything
                         setTimeout(() => {
                             initializeEverything();
                         }, 100);
@@ -2535,10 +2279,8 @@
         let isMusicPlaying = false;
         
         function startBackgroundMusic() {
-            // Start music softly
             backgroundMusic.volume = 0.3;
             
-            // Try to play music (browsers require user interaction)
             const playMusic = () => {
                 if (!isMusicPlaying) {
                     backgroundMusic.play()
@@ -2549,16 +2291,14 @@
                             showNotification("Romantic music started 🎵");
                         })
                         .catch(e => {
-                            console.log("Autoplay prevented, waiting for user interaction");
+                            console.log("Autoplay prevented");
                             showNotification("Click anywhere to start romantic music 🎵");
                         });
                 }
             };
             
-            // Try to play immediately (may not work due to autoplay policies)
             playMusic();
             
-            // Setup music player toggle
             const musicPlayer = document.getElementById('musicPlayer');
             musicPlayer.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -2579,7 +2319,6 @@
                 isMusicPlaying = !isMusicPlaying;
             });
             
-            // Allow any click on the page to start music
             document.addEventListener('click', () => {
                 if (!isMusicPlaying) {
                     backgroundMusic.play()
@@ -2602,28 +2341,24 @@
         // MEDIA GALLERY - REPLACE THESE WITH YOUR PHOTOS!
         // ==============================================
         let mediaGallery = [
-            // Photo 1 - Replace with your photo
             {
                 id: 1,
                 type: "photo",
                 src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
                 caption: "Our first date - I was so nervous but you made it perfect"
             },
-            // Photo 2 - Replace with your photo
             {
                 id: 2,
                 type: "photo",
                 src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
                 caption: "That day at the beach - the sunset matched your smile"
             },
-            // Photo 3 - Replace with your photo
             {
                 id: 3,
                 type: "photo",
                 src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
                 caption: "Our first anniversary dinner - you took my breath away"
             },
-            // Video 1 - Replace with your video
             {
                 id: 4,
                 type: "video",
@@ -2631,14 +2366,12 @@
                 caption: "That fun day at the fair - you winning me that teddy bear",
                 thumbnail: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop"
             },
-            // Photo 5 - Replace with your photo
             {
                 id: 5,
                 type: "photo",
                 src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
                 caption: "Our weekend getaway - just you, me, and endless conversations"
             },
-            // Video 2 - Replace with your video
             {
                 id: 6,
                 type: "video",
@@ -2646,14 +2379,12 @@
                 caption: "Walking hand in hand on the beach at sunset",
                 thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&h=600&fit=crop"
             },
-            // Photo 7 - Replace with your photo
             {
                 id: 7,
                 type: "photo",
                 src: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop",
                 caption: "That surprise birthday party I threw for you"
             },
-            // Photo 8 - Replace with your photo
             {
                 id: 8,
                 type: "photo",
@@ -2661,9 +2392,6 @@
                 caption: "Our first Christmas together - you made it magical"
             }
         ];
-        // ==============================================
-        // END OF MEDIA GALLERY - EDIT ABOVE THIS LINE
-        // ==============================================
         
         // ==============================================
         // INITIALIZE EVERYTHING
@@ -2689,14 +2417,13 @@
         }
         
         // ==============================================
-        // IMPROVED RSVP SYSTEM
+        // RSVP SYSTEM - FULLY RESTORED
         // ==============================================
         function showCustomMessageInput(accepted) {
             currentRSVPChoice = accepted;
             document.getElementById('rsvpCustomMessage').style.display = 'block';
             document.querySelector('.rsvp-buttons').style.display = 'none';
             
-            // Set placeholder based on choice
             const textarea = document.getElementById('rsvpCustomMessageText');
             if (accepted) {
                 textarea.placeholder = "Write your excited message here! (e.g., 'I can't wait to see you! 💖' or 'What should I wear?')";
@@ -2704,7 +2431,6 @@
                 textarea.placeholder = "Write your message here... (e.g., 'I wish I could make it, maybe another day?' or 'I have other plans but let's celebrate soon!')";
             }
             
-            // Scroll to the message input
             textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
             setTimeout(() => {
                 textarea.focus();
@@ -2728,15 +2454,15 @@
             // Save Elsy's response with custom message
             saveResponse(currentRSVPChoice, customMessage);
             
-            // Show response
+            // Show response on invitation page
             const rsvpResponse = document.getElementById('rsvpResponse');
             rsvpResponse.style.display = 'block';
             
             if (currentRSVPChoice) {
                 rsvpResponse.innerHTML = `
-                    <div style="color: #2E7D32; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 16px; border: 2px solid #81c784;">
+                    <div class="response-success">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">💖🎉</div>
-                        <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">You've made me the happiest man in the world!</p>
+                        <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">You've made me the happiest man in the world!</p>
                         <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">I'll be in touch with all the details for our special Valentine's Day!</p>
                         ${customMessage ? `
                         <div style="margin-top: 1.5rem; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 12px; border-left: 4px solid #2E7D32;">
@@ -2746,14 +2472,13 @@
                     </div>
                 `;
                 
-                // Show celebration
                 createCelebrationEffect();
                 showNotification("Your response has been recorded! 💖");
             } else {
                 rsvpResponse.innerHTML = `
-                    <div style="color: #c62828; padding: 30px; background: linear-gradient(135deg, #ffebee, #ffcdd2); border-radius: 16px; border: 2px solid #e57373;">
+                    <div class="response-declined">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">😢</div>
-                        <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">My heart is a little broken, but I understand.</p>
+                        <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">My heart is a little broken, but I understand.</p>
                         <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Maybe we can celebrate another time?</p>
                         ${customMessage ? `
                         <div style="margin-top: 1.5rem; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 12px; border-left: 4px solid #c62828;">
@@ -2764,13 +2489,8 @@
                 `;
             }
             
-            // Hide custom message input and show response
             hideCustomMessageInput();
-            
-            // Scroll to response
             rsvpResponse.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Play notification sound
             playNotificationSound();
         }
         
@@ -2785,13 +2505,10 @@
             
             // Save to localStorage
             localStorage.setItem('elsyValentineResponse', JSON.stringify(elsyResponse));
-            
-            // Also save to a more persistent way (simulated server)
-            simulateServerSave(elsyResponse);
         }
         
         // ==============================================
-        // MEDIA GALLERY FUNCTIONS
+        // MEDIA GALLERY FUNCTIONS - RESTORED
         // ==============================================
         function initializeMediaGallery() {
             const gallery = document.getElementById('mediaGallery');
@@ -2811,7 +2528,6 @@
                 mediaElement.className = 'media-frame';
                 mediaElement.dataset.id = media.id;
                 
-                // Create content based on media type
                 let mediaContent = '';
                 if (media.type === 'photo') {
                     mediaContent = `
@@ -2820,7 +2536,6 @@
                         </div>
                     `;
                 } else if (media.type === 'video') {
-                    // Use thumbnail if available
                     const thumbnail = media.thumbnail || media.src;
                     mediaContent = `
                         <div class="media-content">
@@ -2878,14 +2593,11 @@
                 img.src = media.src;
                 img.alt = media.caption;
                 img.onload = function() {
-                    // Auto-size based on image dimensions
                     const aspectRatio = this.naturalWidth / this.naturalHeight;
                     if (aspectRatio > 1) {
-                        // Landscape
                         this.style.maxWidth = '90vw';
                         this.style.maxHeight = '80vh';
                     } else {
-                        // Portrait
                         this.style.maxWidth = '70vw';
                         this.style.maxHeight = '90vh';
                     }
@@ -2903,8 +2615,6 @@
             
             modalCaption.textContent = media.caption;
             modal.style.display = 'flex';
-            
-            // Play sound
             playNotificationSound();
         }
         
@@ -2912,17 +2622,13 @@
             const uploadSection = document.getElementById('uploadSection');
             uploadSection.classList.add('active');
             
-            // Reset to photo type by default
             setMediaType('photo');
-            
-            // Scroll to upload section
             uploadSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         
         function setMediaType(type) {
             currentMediaType = type;
             
-            // Update active button
             document.querySelectorAll('.type-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.dataset.type === type) {
@@ -2930,7 +2636,6 @@
                 }
             });
             
-            // Update file input accept attribute
             const fileInput = document.getElementById('mediaUpload');
             if (type === 'photo') {
                 fileInput.accept = "image/*";
@@ -2940,7 +2645,6 @@
                 fileInput.setAttribute('accept', 'video/*');
             }
             
-            // Clear previews
             document.getElementById('imagePreview').style.display = 'none';
             document.getElementById('videoPreview').style.display = 'none';
             fileInput.value = '';
@@ -2950,7 +2654,6 @@
             const uploadSection = document.getElementById('uploadSection');
             uploadSection.classList.remove('active');
             
-            // Reset form
             document.getElementById('mediaCaption').value = '';
             document.getElementById('mediaUpload').value = '';
             document.getElementById('imagePreview').style.display = 'none';
@@ -2982,7 +2685,6 @@
                 if (currentMediaType === 'photo') {
                     addMediaToGallery(mediaData, caption, 'photo');
                 } else {
-                    // For videos, we need to create a thumbnail
                     createVideoThumbnail(file, function(thumbnailData) {
                         addMediaToGallery(mediaData, caption, 'video', thumbnailData);
                     });
@@ -3029,7 +2731,6 @@
             
             mediaGallery.push(newMedia);
             
-            // Save to localStorage
             try {
                 localStorage.setItem('elsyLumumbaMedia', JSON.stringify(mediaGallery));
             } catch (e) {
@@ -3040,22 +2741,16 @@
                 }
             }
             
-            // Reinitialize gallery
             initializeMediaGallery();
-            
-            // Close upload section
             cancelUpload();
             
-            // Show success message
             const mediaTypeText = type === 'photo' ? 'Photo' : 'Video';
             showNotification(`${mediaTypeText} added to our gallery! ${type === 'photo' ? '📸' : '🎥'}💖`);
             
-            // Create celebration effect
             for (let i = 0; i < 10; i++) {
                 setTimeout(() => createHeartEffect(), i * 100);
             }
             
-            // Play sound
             playNotificationSound();
         }
         
@@ -3087,7 +2782,6 @@
                 }
             });
             
-            // Setup modal close button
             document.getElementById('closeModal').addEventListener('click', function() {
                 document.getElementById('mediaModal').style.display = 'none';
                 const video = document.querySelector('#mediaModal video');
@@ -3096,20 +2790,17 @@
                 }
             });
             
-            // Setup add media button
             document.getElementById('addMediaBtn').addEventListener('click', function() {
                 changePage('gallery');
                 setTimeout(() => showUploadSection(), 500);
             });
             
-            // Setup media type buttons
             document.querySelectorAll('.type-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     setMediaType(this.dataset.type);
                 });
             });
             
-            // Close modal when clicking outside
             document.getElementById('mediaModal').addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.style.display = 'none';
@@ -3120,7 +2811,6 @@
                 }
             });
             
-            // Setup instructions toggle
             document.getElementById('toggleInstructionsBtn').addEventListener('click', function() {
                 const instructionsPanel = document.getElementById('instructionsPanel');
                 instructionsPanel.classList.toggle('active');
@@ -3136,7 +2826,7 @@
         }
         
         // ==============================================
-        // RESPONSE TRACKER FUNCTIONS
+        // RESPONSE TRACKER FUNCTIONS - RESTORED
         // ==============================================
         function checkResponseStatus() {
             const savedResponse = localStorage.getItem('elsyValentineResponse');
@@ -3155,6 +2845,7 @@
             if (elsyResponse.timestamp) {
                 responseStatus.style.display = 'none';
                 responseMessage.style.display = 'block';
+                responseDetails.style.display = 'block';
                 
                 const date = new Date(elsyResponse.timestamp);
                 
@@ -3163,22 +2854,19 @@
                     responseText.innerHTML = "YES! Elsy has accepted your Valentine's invitation!";
                     responseText.style.color = '#2E7D32';
                     
-                    if (elsyResponse.customMessage) {
-                        responseDetails.style.display = 'block';
-                        document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
-                        document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage;
-                        document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                            weekday: 'long', 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                        });
-                        document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: true
-                        });
-                    }
+                    document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
+                    document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She said YES!";
+                    document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                    document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    });
                     
                     createCelebrationEffect();
                 } else {
@@ -3186,22 +2874,19 @@
                     responseText.innerHTML = "Elsy has declined your invitation";
                     responseText.style.color = '#c62828';
                     
-                    if (elsyResponse.customMessage) {
-                        responseDetails.style.display = 'block';
-                        document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
-                        document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage;
-                        document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                            weekday: 'long', 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                        });
-                        document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: true
-                        });
-                    }
+                    document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
+                    document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She couldn't make it";
+                    document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                    document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    });
                 }
                 
                 responseTime.innerHTML = `Response received: ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -3213,6 +2898,7 @@
                     </p>
                 `;
                 responseMessage.style.display = 'none';
+                responseDetails.style.display = 'none';
             }
             
             // Animate the check button
@@ -3243,7 +2929,6 @@
                 clickCounter.style.display = 'flex';
                 
                 createMiniHeartEffect(e.clientX, e.clientY);
-                
                 playNotificationSound();
                 
                 if (clickCount === 1) {
@@ -3268,12 +2953,10 @@
         
         function unlockResponseTracker() {
             responseUnlocked = true;
-            
             localStorage.setItem('responseTrackerUnlocked', 'true');
             
             const unlockAnimation = document.getElementById('secretUnlockAnimation');
             unlockAnimation.style.display = 'flex';
-            
             document.getElementById('responseNavBtn').style.display = 'inline-flex';
             
             playNotificationSound();
@@ -3338,10 +3021,7 @@
                 setTimeout(() => initializeMediaGallery(), 300);
             }
             
-            // Play sound
             playNotificationSound();
-            
-            // Scroll to top of page
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
@@ -3358,19 +3038,13 @@
             "Elsy, you are the reason I believe in soulmates. We were meant to find each other.",
             "Loving you is the easiest and most natural thing I've ever done.",
             "If love were a journey, I'd travel the world with you, hand in hand, forever.",
-            "You are my today and all of my tomorrows, Elsy.",
-            "With you, I've found a love that feels like coming home after a long journey.",
-            "Your laughter is my favorite melody, your smile my greatest treasure.",
-            "I fall in love with you more every single day, in ways I never thought possible.",
-            "You are the beautiful beginning of everything wonderful in my life.",
-            "My heart recognizes your heart as its other half. We are two souls but one heart."
+            "You are my today and all of my tomorrows, Elsy."
         ];
         
         function generateLoveMessage() {
             const randomIndex = Math.floor(Math.random() * loveMessages.length);
             const message = loveMessages[randomIndex];
             document.getElementById('loveMessageText').textContent = message;
-            
             createHeartEffect();
             playNotificationSound();
         }
@@ -3418,15 +3092,11 @@
             const secretMessage = document.getElementById('secretMessage');
             const secretMessageText = document.getElementById('secretMessageText');
             
-            // ==============================================
             // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE!
-            // Format: MMDD (e.g., 0125 for January 25th)
-            // ==============================================
             if (password === "0214" || password === "1234") { // CHANGE "0214" TO YOUR DATE!
                 secretMessage.style.display = 'block';
                 secretMessageText.textContent = "Elsy, my love for you is eternal. No matter what happens, no matter where life takes us, my heart will always belong to you. This Valentine's Day is just the beginning of forever. I love you more than words could ever express. 💖 Forever yours, Lumumba";
                 createHeartEffect();
-                
                 playNotificationSound();
                 
                 for (let i = 0; i < 15; i++) {
@@ -3538,35 +3208,6 @@
                     };
                 }, i * 100);
             }
-            
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const emoji = document.createElement('div');
-                    emoji.innerHTML = '🔓';
-                    emoji.style.position = 'fixed';
-                    emoji.style.fontSize = '2.8rem';
-                    emoji.style.zIndex = '10000';
-                    emoji.style.left = `${Math.random() * 100}%`;
-                    emoji.style.top = `${Math.random() * 100}%`;
-                    emoji.style.pointerEvents = 'none';
-                    
-                    document.body.appendChild(emoji);
-                    
-                    const anim = emoji.animate([
-                        { transform: 'translateY(0) scale(1)', opacity: 1 },
-                        { transform: 'translateY(-150px) scale(2)', opacity: 0 }
-                    ], {
-                        duration: 2500,
-                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    anim.onfinish = () => {
-                        if (document.body.contains(emoji)) {
-                            document.body.removeChild(emoji);
-                        }
-                    };
-                }, i * 150);
-            }
         }
         
         function createCelebrationEffect() {
@@ -3611,53 +3252,11 @@
         }
         
         // ==============================================
-        // SIMULATE SERVER SAVE
-        // ==============================================
-        function simulateServerSave(response) {
-            console.log("Response saved to server:", response);
-        }
-        
-        // ==============================================
         // START EVERYTHING
         // ==============================================
         window.addEventListener('DOMContentLoaded', () => {
             createCinematicIntro();
         });
-        
-        // ==============================================
-        // TOUCH GESTURES FOR MOBILE
-        // ==============================================
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-        
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                const pages = ['welcome', 'story', 'gallery', 'messages', 'invitation', 'secret'];
-                if (responseUnlocked) pages.push('response');
-                
-                const currentPage = document.querySelector('.page.active').id;
-                const currentIndex = pages.indexOf(currentPage);
-                
-                if (diff > 0 && currentIndex < pages.length - 1) {
-                    changePage(pages[currentIndex + 1]);
-                } else if (diff < 0 && currentIndex > 0) {
-                    changePage(pages[currentIndex - 1]);
-                }
-            }
-        }
     </script>
 </body>
-    </html>
 </html>
