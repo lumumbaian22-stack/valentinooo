@@ -202,70 +202,136 @@ function startLoadingScreen() {
 }
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC - FIXED
+// ROMANTIC BACKGROUND MUSIC - IMPROVED
 // ==============================================
+let backgroundMusic = null;
+let notificationSound = null;
+let isMusicPlaying = false;
+let musicInitialized = false;
+
 function startBackgroundMusic() {
     backgroundMusic = document.getElementById('backgroundMusic');
     notificationSound = document.getElementById('notificationSound');
     
+    if (!backgroundMusic) {
+        console.error("Background music element not found!");
+        return;
+    }
+    
     // Set volume
     backgroundMusic.volume = 0.3;
-    notificationSound.volume = 0.5;
     
-    // Try to play music automatically (will work on most browsers with user interaction)
+    // Preload the audio
+    backgroundMusic.load();
+    
+    // Get music player button
     const musicPlayer = document.getElementById('musicPlayer');
+    if (!musicPlayer) {
+        console.error("Music player button not found!");
+        return;
+    }
+    
+    // Initialize play/pause icons
+    const playIcon = musicPlayer.querySelector('.fa-play');
+    const pauseIcon = musicPlayer.querySelector('.fa-pause');
+    
+    if (playIcon && pauseIcon) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    }
     
     // Add click event for music player
     musicPlayer.addEventListener('click', (e) => {
         e.stopPropagation();
+        e.preventDefault();
         
-        if (isMusicPlaying) {
-            backgroundMusic.pause();
-            musicPlayer.classList.remove('playing');
-            musicPlayer.classList.add('paused');
-            showNotification("Music paused ⏸️");
-        } else {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
-                    showNotification("Music playing 🎵");
-                })
-                .catch(error => {
-                    console.log("Music play failed:", error);
-                    showNotification("Click to enable music 🎵");
-                });
-        }
-        isMusicPlaying = !isMusicPlaying;
+        toggleMusic();
     });
     
-    // Try to start music on first user interaction
-    const startMusicOnInteraction = () => {
-        if (!isMusicPlaying) {
+    // Try to play music on any user interaction
+    const playOnInteraction = () => {
+        if (!isMusicPlaying && !musicInitialized) {
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
+                    if (playIcon && pauseIcon) {
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'block';
+                    }
+                    musicInitialized = true;
+                    console.log("Music started automatically");
                 })
                 .catch(error => {
-                    console.log("Auto-play prevented, waiting for user interaction");
+                    console.log("Auto-play prevented, waiting for manual start:", error);
+                    // Show instruction
+                    musicPlayer.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
+                    musicPlayer.title = "Click to start music";
                 });
         }
-        // Remove the event listener after first interaction
-        document.removeEventListener('click', startMusicOnInteraction);
-        document.removeEventListener('touchstart', startMusicOnInteraction);
     };
     
-    // Add event listeners for user interaction
-    document.addEventListener('click', startMusicOnInteraction);
-    document.addEventListener('touchstart', startMusicOnInteraction);
+    // Add multiple event listeners for user interaction
+    const events = ['click', 'touchstart', 'mousedown', 'keydown'];
+    events.forEach(event => {
+        document.addEventListener(event, playOnInteraction, { once: true });
+    });
+    
+    // Show notification to start music
+    setTimeout(() => {
+        if (!isMusicPlaying) {
+            showNotification("Click the music button to start romantic music 🎵");
+        }
+    }, 2000);
+}
+
+function toggleMusic() {
+    const musicPlayer = document.getElementById('musicPlayer');
+    const playIcon = musicPlayer.querySelector('.fa-play');
+    const pauseIcon = musicPlayer.querySelector('.fa-pause');
+    
+    if (!backgroundMusic) {
+        console.error("Background music not initialized");
+        return;
+    }
+    
+    if (isMusicPlaying) {
+        backgroundMusic.pause();
+        isMusicPlaying = false;
+        musicPlayer.classList.remove('playing');
+        musicPlayer.classList.add('paused');
+        if (playIcon && pauseIcon) {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
+        showNotification("Music paused ⏸️");
+    } else {
+        backgroundMusic.play()
+            .then(() => {
+                isMusicPlaying = true;
+                musicPlayer.classList.add('playing');
+                musicPlayer.classList.remove('paused');
+                if (playIcon && pauseIcon) {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                }
+                showNotification("Music playing 🎵");
+                musicPlayer.style.background = ''; // Reset color
+                musicPlayer.title = "Click to pause music";
+            })
+            .catch(error => {
+                console.error("Error playing music:", error);
+                showNotification("Could not play music. Please check your file.");
+                musicPlayer.style.background = 'linear-gradient(135deg, #c62828, #b71c1c)';
+            });
+    }
 }
 
 function playNotificationSound() {
     if (notificationSound) {
         notificationSound.currentTime = 0;
+        notificationSound.volume = 0.3;
         notificationSound.play().catch(e => console.log("Could not play notification sound"));
     }
 }
@@ -908,3 +974,4 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
     setupMediaModal();
 });
+
