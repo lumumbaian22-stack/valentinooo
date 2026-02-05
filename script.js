@@ -33,7 +33,7 @@ let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "media/eith_image.jpeg",
+        src: "media/first_image.jpeg",
         caption: "Our first date - I was so nervous but you made it perfect"
     },
     {
@@ -1131,3 +1131,4 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
