@@ -33,7 +33,7 @@ let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
+        src: "media/eith_image.jpeg",
         caption: "Our first date - I was so nervous but you made it perfect"
     },
     {
@@ -1129,4 +1129,5 @@ function showNotification(message) {
 // ==============================================
 window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
+
 });
