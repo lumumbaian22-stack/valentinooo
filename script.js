@@ -63,7 +63,6 @@ let mediaGallery = [
         src: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&h=600&fit=crop",
         caption: "Our first Christmas together - you made it magical"
     }
-    // ADD MORE PHOTOS HERE BY COPYING THE FORMAT ABOVE
 ];
 
 // ==============================================
@@ -207,63 +206,55 @@ let isMusicPlaying = false;
 function startBackgroundMusic() {
     backgroundMusic.volume = 0.3;
     
-    // Set initial state - music is paused
+    // Try to play music automatically (might not work due to browser policies)
+    const playMusic = () => {
+        if (!isMusicPlaying) {
+            backgroundMusic.play()
+                .then(() => {
+                    isMusicPlaying = true;
+                    document.getElementById('musicPlayer').classList.add('playing');
+                    document.getElementById('musicPlayer').classList.remove('paused');
+                    showNotification("Romantic music started 🎵");
+                })
+                .catch(e => {
+                    console.log("Autoplay prevented");
+                    showNotification("Click the music button to start romantic music 🎵");
+                });
+        }
+    };
+    
+    playMusic();
+    
     const musicPlayer = document.getElementById('musicPlayer');
-    musicPlayer.classList.remove('playing');
-    musicPlayer.classList.add('paused');
-    
-    // Show instruction to user
-    showNotification("Click the music button to start romantic music 🎵");
-    
-    // Music player click handler
     musicPlayer.addEventListener('click', (e) => {
         e.stopPropagation();
-        
         if (isMusicPlaying) {
-            // Pause the music
             backgroundMusic.pause();
             musicPlayer.classList.remove('playing');
             musicPlayer.classList.add('paused');
             showNotification("Music paused ⏸️");
-            isMusicPlaying = false;
         } else {
-            // Try to play the music
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
-                    showNotification("Romantic music playing 🎵");
-                })
-                .catch(err => {
-                    console.log("Music play error:", err);
-                    showNotification("Click anywhere on the page first, then try the music button");
-                    
-                    // Set up a one-time click listener to try again
-                    const retryPlay = () => {
-                        backgroundMusic.play()
-                            .then(() => {
-                                isMusicPlaying = true;
-                                musicPlayer.classList.add('playing');
-                                musicPlayer.classList.remove('paused');
-                                showNotification("Music playing now! 🎵");
-                            })
-                            .catch(e => {
-                                console.log("Still couldn't play:", e);
-                                showNotification("Please click the music button again");
-                            });
-                        document.removeEventListener('click', retryPlay);
-                    };
-                    
-                    document.addEventListener('click', retryPlay, { once: true });
+                    showNotification("Music playing 🎵");
                 });
         }
+        isMusicPlaying = !isMusicPlaying;
     });
     
-    // Also allow clicking anywhere on the page to enable audio
+    // Allow clicking anywhere to start music if autoplay was blocked
     document.addEventListener('click', () => {
-        // This empty handler helps browsers allow audio after user interaction
-        console.log("User interacted with page - audio should be enabled now");
+        if (!isMusicPlaying) {
+            backgroundMusic.play()
+                .then(() => {
+                    isMusicPlaying = true;
+                    musicPlayer.classList.add('playing');
+                    musicPlayer.classList.remove('paused');
+                });
+        }
     }, { once: true });
 }
 
