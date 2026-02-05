@@ -241,22 +241,34 @@ function startBackgroundMusic() {
     
     playMusic();
     
-    const musicPlayer = document.getElementById('musicPlayer');
-    musicPlayer.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (isMusicPlaying) {
-            backgroundMusic.pause();
-            musicPlayer.classList.remove('playing');
-            musicPlayer.classList.add('paused');
-            showNotification("Music paused ⏸️");
-        } else {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
-                    showNotification("Music playing 🎵");
-                });
+  const musicPlayer = document.getElementById('musicPlayer');
+
+// Show initial state
+musicPlayer.classList.remove('playing');
+musicPlayer.classList.add('paused');
+
+musicPlayer.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (isMusicPlaying) {
+        backgroundMusic.pause();
+        musicPlayer.classList.remove('playing');
+        musicPlayer.classList.add('paused');
+        showNotification("Music paused ⏸️");
+        isMusicPlaying = false;
+    } else {
+        backgroundMusic.play()
+            .then(() => {
+                isMusicPlaying = true;
+                musicPlayer.classList.add('playing');
+                musicPlayer.classList.remove('paused');
+                showNotification("Music playing 🎵");
+            })
+            .catch(err => {
+                showNotification("Click anywhere first, then music button");
+            });
+    }
+});
         }
         isMusicPlaying = !isMusicPlaying;
     });
@@ -1131,6 +1143,7 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
 
 
 
