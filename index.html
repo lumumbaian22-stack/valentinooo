@@ -54,7 +54,6 @@
         <i class="fas fa-pause music-icon"></i>
     </div>
     
-
     <!-- =========================================== -->
     <!-- MAIN WEBSITE CONTENT -->
     <!-- =========================================== -->
@@ -64,11 +63,6 @@
             <div class="secret-emoji">❤️</div>
             <div class="click-counter" id="clickCounter">0</div>
         </div>
-        
-        <!-- Add Photo/Video Button -->
-        <button class="add-media-btn" id="addMediaBtn" title="Add photo or video">
-            <i class="fas fa-plus"></i>
-        </button>
         
         <!-- Media Modal -->
         <div class="media-modal" id="mediaModal">
@@ -121,7 +115,7 @@
                         <i class="fas fa-lock"></i>
                         <span>Secret</span>
                     </button>
-                    <!-- HIDDEN Response Tracker Button -->
+                    <!-- HIDDEN Response Tracker Button - Only shows after activation -->
                     <button class="nav-btn" id="responseNavBtn" data-page="response" style="display: none;">
                         <i class="fas fa-heartbeat"></i>
                         <span>Response</span>
@@ -175,7 +169,7 @@
                                     <i class="fas fa-heart"></i>
                                     The First Time We Met
                                 </h3>
-                                <p>I remember your smile lighting up the room. I knew right then that you were someone special who would change my world.</p>
+                                <p>I remember your smile lighting up the room. I knew right then that you were someone special who would change my world. The way you laughed, the way you spoke - everything about you captivated me from that very first moment.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -183,7 +177,7 @@
                                     <i class="fas fa-laugh"></i>
                                     Our First Laugh Together
                                 </h3>
-                                <p>That joke I told that made you laugh so hard you cried. Your laughter is my favorite sound in the world.</p>
+                                <p>That joke I told that made you laugh so hard you cried. Your laughter is my favorite sound in the world. I realized then that I wanted to be the reason for your happiness every single day.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -191,7 +185,7 @@
                                     <i class="fas fa-star"></i>
                                     The First Time I Realized
                                 </h3>
-                                <p>It hit me suddenly - I was falling in love with you. Your kindness, your intelligence, your beautiful soul captivated me completely.</p>
+                                <p>It hit me suddenly - I was falling in love with you. Your kindness, your intelligence, your beautiful soul captivated me completely. Every day with you felt like a blessing I didn't deserve.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -199,15 +193,24 @@
                                     <i class="fas fa-road"></i>
                                     Our Future Together
                                 </h3>
-                                <p>I dream of all the adventures we'll have, the challenges we'll overcome, and the love that will grow stronger every day.</p>
+                                <p>I dream of all the adventures we'll have, the challenges we'll overcome, and the love that will grow stronger every day. With you by my side, I know every day will be an adventure worth living.</p>
                             </div>
-                        </div>
-                        
-                        <div class="text-center mt-4">
-                            <button class="love-btn" onclick="addMemory()">
-                                <i class="fas fa-plus-circle"></i>
-                                Add Our Memory
-                            </button>
+                            
+                            <div class="memory-card">
+                                <h3 class="memory-title">
+                                    <i class="fas fa-moon"></i>
+                                    Late Night Conversations
+                                </h3>
+                                <p>Those endless talks we have late into the night, sharing our dreams and fears. You understand me like no one else ever has. Those moments are pure magic.</p>
+                            </div>
+                            
+                            <div class="memory-card">
+                                <h3 class="memory-title">
+                                    <i class="fas fa-hands"></i>
+                                    Your Support Means Everything
+                                </h3>
+                                <p>Through every challenge and every victory, you've been my rock. Your belief in me gives me strength I never knew I had. With you, I feel I can conquer the world.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -218,106 +221,11 @@
                         <h2 class="section-title">Our Special Moments</h2>
                         
                         <p class="gallery-intro">
-                            Every picture and video tells a story of our love. These are moments I'll treasure forever, Elsy.
+                            Every picture tells a story of our love. These are moments I'll treasure forever, Elsy.
                         </p>
-                        
-                        <!-- Instructions Panel -->
-                        <div class="text-center">
-                            <button class="toggle-instructions-btn" id="toggleInstructionsBtn">
-                                <i class="fas fa-info-circle"></i>
-                                How to Add Your Photos & Videos
-                            </button>
-                        </div>
-                        
-                        <div class="instructions-panel" id="instructionsPanel">
-                            <h3 class="instructions-title">
-                                <i class="fas fa-camera"></i>
-                                Easy Photo/Video Replacement Guide
-                            </h3>
-                            <div class="instructions-content">
-                                <p><strong>To replace these placeholder images with YOUR actual photos:</strong></p>
-                                <ol>
-                                    <li><strong>Upload your photos/videos</strong> to Google Drive, Dropbox, or Imgur</li>
-                                    <li><strong>Get the direct links</strong> (should end with .jpg, .png, .mp4)</li>
-                                    <li><strong>Open the script.js file</strong> in a text editor (Notepad, VS Code, etc.)</li>
-                                    <li><strong>Find the mediaGallery array</strong> (around line 50-150)</li>
-                                    <li><strong>Replace the placeholder URLs</strong> with your actual photo/video URLs</li>
-                                    <li><strong>Update the captions</strong> with your special memories</li>
-                                    <li><strong>Save the file</strong> and refresh the webpage</li>
-                                </ol>
-                                <p><strong>Example:</strong></p>
-                                <code>
-                                    {<br>
-                                    &nbsp;&nbsp;id: 1,<br>
-                                    &nbsp;&nbsp;type: "photo",<br>
-                                    &nbsp;&nbsp;src: "https://YOUR-PHOTO-URL-HERE.jpg",<br>
-                                    &nbsp;&nbsp;caption: "Our first date at the Italian restaurant"<br>
-                                    }
-                                </code>
-                                <p class="mt-3"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> You can also use the upload button below to add photos directly!</p>
-                            </div>
-                        </div>
                         
                         <div class="gallery-grid" id="mediaGallery">
                             <!-- Photos and videos will be dynamically added here -->
-                        </div>
-                        
-                        <!-- Upload Section -->
-                        <div class="upload-section" id="uploadSection">
-                            <h3 class="upload-title">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                Add Our Memory
-                            </h3>
-                            
-                            <!-- Media Type Selector -->
-                            <div class="media-type-selector">
-                                <button class="type-btn active" data-type="photo">
-                                    <i class="fas fa-camera"></i>
-                                    Photo
-                                </button>
-                                <button class="type-btn" data-type="video">
-                                    <i class="fas fa-video"></i>
-                                    Video
-                                </button>
-                            </div>
-                            
-                            <input type="text" class="upload-input" id="mediaCaption" 
-                                   placeholder="Add a caption for this memory...">
-                            
-                            <div class="file-upload-btn">
-                                <label for="mediaUpload" class="love-btn" style="display: inline-block; width: auto; padding: 15px 30px;">
-                                    <i class="fas fa-folder-open"></i>
-                                    Choose File
-                                </label>
-                                <input type="file" id="mediaUpload" accept="image/*,video/*" style="display: none;">
-                            </div>
-                            
-                            <!-- Image Preview -->
-                            <img id="imagePreview" class="upload-preview" src="" alt="Photo preview">
-                            
-                            <!-- Video Preview -->
-                            <video id="videoPreview" class="video-preview" controls>
-                                Your browser does not support the video tag.
-                            </video>
-                            
-                            <div class="upload-actions">
-                                <button class="love-btn" onclick="uploadMedia()" style="background: linear-gradient(135deg, #2E7D32, #1B5E20);">
-                                    <i class="fas fa-check"></i>
-                                    Add to Gallery
-                                </button>
-                                <button class="love-btn" onclick="cancelUpload()" style="background: linear-gradient(135deg, #c62828, #b71c1c);">
-                                    <i class="fas fa-times"></i>
-                                    Cancel
-                                </button>
-                            </div>
-                            
-                            <div class="mt-3" style="padding: 15px; background: #fff9f9; border-radius: 10px;">
-                                <p style="font-size: 0.9rem; color: #666; text-align: center;">
-                                    <i class="fas fa-info-circle"></i> 
-                                    <strong>Tip:</strong> Images and videos will display in their natural sizes. 
-                                    For best viewing, use landscape orientation photos.
-                                </p>
-                            </div>
                         </div>
                         
                         <div class="text-center mt-4">
@@ -370,7 +278,7 @@
                         <div class="invitation-text">
                             <p>My dearest Elsy,</p>
                             <p>I would be honored if you would be my Valentine this year.</p>
-                            <p>Let's create beautiful memories together.</p>
+                            <p>Let's create beautiful memories together that we'll cherish forever.</p>
                         </div>
                         
                         <div class="date-time">
@@ -457,8 +365,8 @@
                     </div>
                 </div>
                 
-                <!-- Page 7: Response Tracker -->
-                <div class="page" id="response">
+                <!-- Page 7: Response Tracker - Hidden until activated -->
+                <div class="page" id="response" style="display: none;">
                     <div class="response-container">
                         <h2 class="section-title">Response Tracker 🔒</h2>
                         
@@ -530,13 +438,16 @@
         </div>
     </div>
 
-  <audio id="backgroundMusic" loop preload="auto">
-    <source src="media/background_music.mp3" type="audio/mpeg">
-</audio>
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_12cc7c8c67.mp3?filename=love-song-193048.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <audio id="notificationSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="script.js" defer></script>
 </body>
-
 </html>
-
-
-
