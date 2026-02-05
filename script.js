@@ -1,9 +1,9 @@
 // ==============================================
 // ELSY & LUMUMBA'S VALENTINE WEBSITE
 // ==============================================
-// Lumumba: TO ADD YOUR PHOTOS:
+// Lumumba: TO ADD YOUR PHOTOS & VIDEOS:
 // 1. Find the "mediaGallery" array below (around line 50-150)
-// 2. Replace the placeholder URLs with YOUR actual photo URLs
+// 2. Replace the placeholder URLs with YOUR actual photo/video URLs
 // 3. Update the captions with your special memories
 // 4. Change the secret password to your actual first date
 // ==============================================
@@ -19,6 +19,11 @@ let elsyResponse = {
 // Secret activation tracking
 let clickCount = 0;
 let responseUnlocked = false;
+
+// Music variables
+let backgroundMusic = null;
+let notificationSound = null;
+let isMusicPlaying = false;
 
 // Current RSVP choice
 let currentRSVPChoice = null;
@@ -197,37 +202,23 @@ function startLoadingScreen() {
 }
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC
+// ROMANTIC BACKGROUND MUSIC - FIXED
 // ==============================================
-let backgroundMusic = document.getElementById('backgroundMusic');
-let notificationSound = document.getElementById('notificationSound');
-let isMusicPlaying = false;
-
 function startBackgroundMusic() {
+    backgroundMusic = document.getElementById('backgroundMusic');
+    notificationSound = document.getElementById('notificationSound');
+    
+    // Set volume
     backgroundMusic.volume = 0.3;
+    notificationSound.volume = 0.5;
     
-    // Try to play music automatically (might not work due to browser policies)
-    const playMusic = () => {
-        if (!isMusicPlaying) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    document.getElementById('musicPlayer').classList.add('playing');
-                    document.getElementById('musicPlayer').classList.remove('paused');
-                    showNotification("Romantic music started 🎵");
-                })
-                .catch(e => {
-                    console.log("Autoplay prevented");
-                    showNotification("Click the music button to start romantic music 🎵");
-                });
-        }
-    };
-    
-    playMusic();
-    
+    // Try to play music automatically (will work on most browsers with user interaction)
     const musicPlayer = document.getElementById('musicPlayer');
+    
+    // Add click event for music player
     musicPlayer.addEventListener('click', (e) => {
         e.stopPropagation();
+        
         if (isMusicPlaying) {
             backgroundMusic.pause();
             musicPlayer.classList.remove('playing');
@@ -240,28 +231,43 @@ function startBackgroundMusic() {
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
                     showNotification("Music playing 🎵");
+                })
+                .catch(error => {
+                    console.log("Music play failed:", error);
+                    showNotification("Click to enable music 🎵");
                 });
         }
         isMusicPlaying = !isMusicPlaying;
     });
     
-    // Allow clicking anywhere to start music if autoplay was blocked
-    document.addEventListener('click', () => {
+    // Try to start music on first user interaction
+    const startMusicOnInteraction = () => {
         if (!isMusicPlaying) {
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
+                })
+                .catch(error => {
+                    console.log("Auto-play prevented, waiting for user interaction");
                 });
         }
-    }, { once: true });
+        // Remove the event listener after first interaction
+        document.removeEventListener('click', startMusicOnInteraction);
+        document.removeEventListener('touchstart', startMusicOnInteraction);
+    };
+    
+    // Add event listeners for user interaction
+    document.addEventListener('click', startMusicOnInteraction);
+    document.addEventListener('touchstart', startMusicOnInteraction);
 }
 
 function playNotificationSound() {
-    notificationSound.currentTime = 0;
-    notificationSound.volume = 0.5;
-    notificationSound.play().catch(e => console.log("Could not play notification sound"));
+    if (notificationSound) {
+        notificationSound.currentTime = 0;
+        notificationSound.play().catch(e => console.log("Could not play notification sound"));
+    }
 }
 
 // ==============================================
@@ -272,7 +278,6 @@ function initializeEverything() {
     setupSecretActivation();
     checkIfUnlocked();
     setupNavigation();
-    setupMediaModal();
     initializeMediaGallery();
     
     // Check for saved response on load
@@ -379,7 +384,7 @@ function saveResponse(accepted, customMessage = "") {
 }
 
 // ==============================================
-// MEDIA GALLERY FUNCTIONS (STATIC - NO UPLOAD)
+// MEDIA GALLERY FUNCTIONS (READ-ONLY)
 // ==============================================
 function initializeMediaGallery() {
     const gallery = document.getElementById('mediaGallery');
@@ -398,6 +403,15 @@ function initializeMediaGallery() {
             mediaContent = `
                 <div class="media-content">
                     <img src="${media.src}" alt="Memory photo" loading="lazy">
+                </div>
+            `;
+        } else if (media.type === 'video') {
+            const thumbnail = media.thumbnail || media.src;
+            mediaContent = `
+                <div class="media-content">
+                    <video preload="metadata" poster="${thumbnail}">
+                        <source src="${media.src}" type="video/mp4">
+                    </video>
                 </div>
             `;
         }
@@ -436,6 +450,14 @@ function openMediaModal(media) {
             }
         };
         modalContent.appendChild(img);
+    } else if (media.type === 'video') {
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.style.maxWidth = '90vw';
+        video.style.maxHeight = '80vh';
+        modalContent.appendChild(video);
     }
     
     modalCaption.textContent = media.caption;
@@ -443,14 +465,23 @@ function openMediaModal(media) {
     playNotificationSound();
 }
 
+// Setup media modal close button
 function setupMediaModal() {
     document.getElementById('closeModal').addEventListener('click', function() {
         document.getElementById('mediaModal').style.display = 'none';
+        const video = document.querySelector('#mediaModal video');
+        if (video) {
+            video.pause();
+        }
     });
     
     document.getElementById('mediaModal').addEventListener('click', function(e) {
         if (e.target === this) {
             this.style.display = 'none';
+            const video = document.querySelector('#mediaModal video');
+            if (video) {
+                video.pause();
+            }
         }
     });
 }
@@ -585,9 +616,12 @@ function unlockResponseTracker() {
     responseUnlocked = true;
     localStorage.setItem('responseTrackerUnlocked', 'true');
     
+    // Show the response page and navigation button
+    document.getElementById('responseNavBtn').style.display = 'inline-flex';
+    
+    // Show unlock animation
     const unlockAnimation = document.getElementById('secretUnlockAnimation');
     unlockAnimation.style.display = 'flex';
-    document.getElementById('responseNavBtn').style.display = 'inline-flex';
     
     playNotificationSound();
     createUnlockCelebration();
@@ -616,6 +650,13 @@ function setupNavigation() {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const pageId = button.getAttribute('data-page');
+            
+            // Hide Response page if not unlocked
+            if (pageId === 'response' && !responseUnlocked) {
+                showNotification("Response tracker is locked! Click the ❤️ emoji 3 times to unlock.");
+                return;
+            }
+            
             changePage(pageId);
         });
     });
@@ -639,6 +680,9 @@ function changePage(pageId) {
         page.classList.remove('active');
         if (page.id === pageId) {
             page.classList.add('active');
+            page.style.display = 'block';
+        } else {
+            page.style.display = 'none';
         }
     });
     
@@ -862,4 +906,5 @@ function showNotification(message) {
 // ==============================================
 window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
+    setupMediaModal();
 });
