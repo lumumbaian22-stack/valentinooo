@@ -233,7 +233,7 @@ function startBackgroundMusic() {
                     showNotification("Romantic music started 🎵");
                 })
                 .catch(e => {
-                    console.log("Autoplay immediately");
+                    console.log("Autoplay prevented");
                     showNotification("Click anywhere to start romantic music 🎵");
                 });
         }
@@ -1131,6 +1131,7 @@ window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
 
 });
+
 
 
 
