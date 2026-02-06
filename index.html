@@ -115,11 +115,6 @@
                         <i class="fas fa-lock"></i>
                         <span>Secret</span>
                     </button>
-                    <!-- HIDDEN Response Tracker Button -->
-                    <button class="nav-btn" id="responseNavBtn" data-page="response" style="display: none;">
-                        <i class="fas fa-heartbeat"></i>
-                        <span>Response</span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -368,70 +363,6 @@
                         
                         <div class="password-hint">
                             <p>Hint: Think about when we first went out together</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Page 7: Response Tracker (HIDDEN INITIALLY) -->
-                <div class="page" id="response">
-                    <div class="response-container">
-                        <h2 class="section-title">Response Tracker 🔒</h2>
-                        
-                        <div class="response-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        
-                        <p style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center; line-height: 1.6;">
-                            <strong>Secret Access Only!</strong><br>
-                            Only you (Lumumba) can see Elsy's response to your invitation.
-                        </p>
-                        
-                        <div class="response-status" id="responseStatus">
-                            <p>Checking Elsy's response status...</p>
-                        </div>
-                        
-                        <!-- Elsy's Response Display in Tracker -->
-                        <div id="responseMessage" style="display: none;">
-                            <div class="response-icon" id="responseIcon">💖</div>
-                            <div class="response-message" id="responseText"></div>
-                            <div id="responseTime" style="color: #666; font-size: 1rem;"></div>
-                            
-                            <!-- Elsy's Custom Message Display -->
-                            <div class="response-details" id="responseDetails">
-                                <h3 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;">
-                                    <i class="fas fa-comment-heart"></i>
-                                    Elsy's Personal Message
-                                </h3>
-                                <div class="response-detail-item">
-                                    <span class="response-detail-label">Response:</span>
-                                    <span class="response-detail-value" id="responseStatusDetail"></span>
-                                </div>
-                                <div class="response-detail-item">
-                                    <span class="response-detail-label">Her Message:</span>
-                                    <span class="response-detail-value" id="responseMessageDetail"></span>
-                                </div>
-                                <div class="response-detail-item">
-                                    <span class="response-detail-label">Date:</span>
-                                    <span class="response-detail-value" id="responseDateDetail"></span>
-                                </div>
-                                <div class="response-detail-item">
-                                    <span class="response-detail-label">Time:</span>
-                                    <span class="response-detail-value" id="responseTimeDetail"></span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="check-status-btn" onclick="checkResponseStatus()">
-                            <i class="fas fa-sync-alt"></i>
-                            Check Response Status
-                        </button>
-                        
-                        <div style="margin-top: 3rem; padding: 25px; background: linear-gradient(135deg, #fff5f5, #ffeaea); border-radius: 16px; border: 1px solid var(--light-red);">
-                            <h3 style="color: var(--primary-red); margin-bottom: 1rem; text-align: center;">How it works:</h3>
-                            <p style="font-size: 1rem; line-height: 1.6; color: #555;">
-                                When Elsy responds to your invitation, her actual message and response are secretly recorded. 
-                                Only you can access this page by clicking the ❤️ emoji three times in the top-left corner.
-                            </p>
                         </div>
                     </div>
                 </div>
