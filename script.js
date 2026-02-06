@@ -95,130 +95,17 @@ const loveMessages = [
 ];
 
 // ==============================================
-// CINEMATIC INTRO ANIMATION
-// ==============================================
-function createCinematicIntro() {
-    const introHearts = document.getElementById('introHearts');
-    const introProgress = document.getElementById('introProgress');
-    
-    // Create floating hearts for intro
-    for (let i = 0; i < 25; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.className = 'intro-heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.animationDelay = `${Math.random() * 3}s`;
-            heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
-            heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-            introHearts.appendChild(heart);
-        }, i * 100);
-    }
-    
-    // Animate title and subtitle
-    const title = document.querySelector('.intro-title');
-    const subtitle = document.querySelector('.intro-subtitle');
-    const date = document.querySelector('.intro-date');
-    
-    // Progress animation
-    let progress = 0;
-    const progressInterval = setInterval(() => {
-        progress += 1;
-        introProgress.style.width = `${progress}%`;
-        
-        if (progress >= 20) {
-            title.style.opacity = '1';
-            title.style.transform = 'translateY(0)';
-            title.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
-        
-        if (progress >= 40) {
-            subtitle.style.opacity = '1';
-            subtitle.style.transform = 'translateY(0)';
-            subtitle.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
-        
-        if (progress >= 60) {
-            date.style.opacity = '1';
-            date.style.transform = 'translateY(0)';
-            date.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
-        
-        if (progress >= 100) {
-            clearInterval(progressInterval);
-            setTimeout(() => {
-                document.getElementById('cinematicIntro').style.opacity = '0';
-                document.getElementById('cinematicIntro').style.pointerEvents = 'none';
-                setTimeout(() => {
-                    document.getElementById('cinematicIntro').style.display = 'none';
-                    startLoadingScreen();
-                }, 1000);
-            }, 500);
-        }
-    }, 40);
-}
-
-// ==============================================
-// PREMIUM LOADING SCREEN
-// ==============================================
-function startLoadingScreen() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    const loadingProgress = document.getElementById('loadingProgress');
-    const loadingText = document.getElementById('loadingText');
-    
-    // Show loading screen
-    loadingScreen.style.opacity = '1';
-    loadingScreen.style.pointerEvents = 'all';
-    
-    // Loading messages
-    const loadingMessages = [
-        "Loading Our Love Story...",
-        "Preparing Special Memories...",
-        "Setting the Romantic Mood...",
-        "Almost Ready...",
-        "Welcome to Our Love Story!"
-    ];
-    
-    // Simulate loading with progress bar
-    let progress = 0;
-    const loadingInterval = setInterval(() => {
-        progress += Math.random() * 8 + 2;
-        if (progress > 100) progress = 100;
-        loadingProgress.style.width = `${progress}%`;
-        
-        // Update loading text based on progress
-        if (progress < 20) loadingText.textContent = loadingMessages[0];
-        else if (progress < 40) loadingText.textContent = loadingMessages[1];
-        else if (progress < 60) loadingText.textContent = loadingMessages[2];
-        else if (progress < 80) loadingText.textContent = loadingMessages[3];
-        else loadingText.textContent = loadingMessages[4];
-        
-        if (progress >= 100) {
-            clearInterval(loadingInterval);
-            setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                loadingScreen.style.pointerEvents = 'none';
-                document.getElementById('websiteContent').style.display = 'block';
-                startBackgroundMusic();
-                createFloatingHearts();
-                setTimeout(() => {
-                    initializeEverything();
-                }, 100);
-            }, 800);
-        }
-    }, 150);
-}
-
-// ==============================================
-// ROMANTIC BACKGROUND MUSIC - UPDATED
+// ROMANTIC BACKGROUND MUSIC - AUTOPLAY FIXED
 // ==============================================
 let backgroundMusic = document.getElementById('backgroundMusic');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
+let musicStarted = false;
 
 function startBackgroundMusic() {
     // Set initial volume
     backgroundMusic.volume = 0.4;
+    backgroundMusic.loop = false; // No looping as requested
     
     const musicPlayer = document.getElementById('musicPlayer');
     
@@ -238,8 +125,8 @@ function startBackgroundMusic() {
                     showNotification("Music playing 🎵");
                 })
                 .catch(e => {
-                    console.log("Autoplay prevented:", e);
-                    showNotification("Tap the music player to start music 🎵");
+                    console.log("Play error:", e);
+                    showNotification("Tap to start music 🎵");
                 });
         }
         isMusicPlaying = !isMusicPlaying;
@@ -251,22 +138,53 @@ function startBackgroundMusic() {
         toggleMusic();
     });
     
-    // Try to auto-play music (will work on most browsers with user interaction)
-    document.addEventListener('click', () => {
-        if (!isMusicPlaying) {
+    // Try to auto-play when user interacts with the page
+    const startMusicOnInteraction = () => {
+        if (!musicStarted) {
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
+                    musicStarted = true;
+                    musicPlayer.classList.add('playing');
+                    musicPlayer.classList.remove('paused');
+                    showNotification("Romantic music started 🎵");
+                })
+                .catch(e => {
+                    console.log("Auto-play prevented, waiting for user interaction");
+                    // Show notification to click music player
+                    showNotification("Click the music player to start romantic music 🎵");
+                });
+        }
+    };
+    
+    // Try to start music on any user interaction
+    document.addEventListener('click', startMusicOnInteraction, { once: true });
+    document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
+    document.addEventListener('keydown', startMusicOnInteraction, { once: true });
+    
+    // Also try when page loads (some browsers allow this with low volume)
+    setTimeout(() => {
+        if (!musicStarted) {
+            backgroundMusic.play()
+                .then(() => {
+                    isMusicPlaying = true;
+                    musicStarted = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
                 })
                 .catch(e => {
-                    console.log("Auto-play prevented");
+                    // Auto-play failed, will wait for user interaction
+                    console.log("Initial auto-play failed:", e);
                 });
         }
-    }, { once: true });
+    }, 1000);
 }
 
+function playNotificationSound() {
+    notificationSound.currentTime = 0;
+    notificationSound.volume = 0.5;
+    notificationSound.play().catch(e => console.log("Could not play notification sound"));
+}
 function playNotificationSound() {
     notificationSound.currentTime = 0;
     notificationSound.volume = 0.5;
