@@ -30,37 +30,37 @@ let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "media/first_image.jpeg",
+        src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
         caption: "Our first date - I was so nervous but you made it perfect"
     },
     {
         id: 2,
         type: "photo",
-        src: "media/new_image_1.jpeg",
+        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
         caption: "That day at the beach - the sunset matched your smile"
     },
     {
         id: 3,
         type: "photo",
-        src: "media/ninth_image.jpeg",
+        src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
         caption: "Our first anniversary dinner - you took my breath away"
     },
     {
         id: 4,
         type: "video",
-        src: "media/fourth_video.mp4",
+        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-having-fun-at-a-fair-7254-large.mp4",
         caption: "That fun day at the fair - you winning me that teddy bear"
     },
     {
         id: 5,
         type: "photo",
-        src: "media/new_image_2.jpeg",
+        src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
         caption: "Our weekend getaway - just you, me, and endless conversations"
     },
     {
         id: 6,
         type: "video",
-        src: "media/new_video_3.mp4",
+        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-and-hugging-on-the-beach-7565-large.mp4",
         caption: "Walking hand in hand on the beach at sunset"
     }
 ];
@@ -279,7 +279,6 @@ function playNotificationSound() {
 function initializeEverything() {
     generateLoveMessage();
     setupSecretActivation();
-    checkIfUnlocked();
     setupNavigation();
     initializeMediaGallery();
     initializeMusicPlayer();
@@ -509,96 +508,7 @@ document.getElementById('closeModal').addEventListener('click', function() {
 });
 
 // ==============================================
-// RESPONSE TRACKER FUNCTIONS
-// ==============================================
-function checkResponseStatus() {
-    const savedResponse = localStorage.getItem('elsyValentineResponse');
-    
-    if (savedResponse) {
-        elsyResponse = JSON.parse(savedResponse);
-    }
-    
-    const responseStatus = document.getElementById('responseStatus');
-    const responseMessage = document.getElementById('responseMessage');
-    const responseIcon = document.getElementById('responseIcon');
-    const responseText = document.getElementById('responseText');
-    const responseTime = document.getElementById('responseTime');
-    const responseDetails = document.getElementById('responseDetails');
-    
-    if (elsyResponse.timestamp) {
-        responseStatus.style.display = 'none';
-        responseMessage.style.display = 'block';
-        responseDetails.style.display = 'block';
-        
-        const date = new Date(elsyResponse.timestamp);
-        
-        if (elsyResponse.accepted) {
-            responseIcon.innerHTML = '💖🎉';
-            responseText.innerHTML = "YES! Elsy has accepted your Valentine's invitation!";
-            responseText.style.color = '#2E7D32';
-            
-            document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
-            document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She said YES!";
-            document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-            
-            createCelebrationEffect();
-        } else {
-            responseIcon.innerHTML = '😢';
-            responseText.innerHTML = "Elsy has declined your invitation";
-            responseText.style.color = '#c62828';
-            
-            document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
-            document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She couldn't make it";
-            document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-        }
-        
-        responseTime.innerHTML = `Response received: ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-    } else {
-        responseStatus.innerHTML = `
-            <p>Elsy hasn't responded yet. Check back after she visits the invitation page!</p>
-            <p style="margin-top: 10px; font-size: 1rem; color: #666;">
-                <i class="fas fa-info-circle"></i> She can leave a personal message when she responds!
-            </p>
-        `;
-        responseMessage.style.display = 'none';
-        responseDetails.style.display = 'none';
-    }
-    
-    // Animate the check button
-    const checkBtn = document.querySelector('.check-status-btn');
-    checkBtn.innerHTML = '<i class="fas fa-check"></i> Status Updated';
-    checkBtn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-    
-    setTimeout(() => {
-        checkBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Check Response Status';
-        checkBtn.style.background = 'linear-gradient(135deg, #1976D2, #0D47A1)';
-    }, 2000);
-    
-    playNotificationSound();
-}
-
-// ==============================================
-// SECRET ACTIVATION
+// SECRET ACTIVATION - RESPONSE TRACKER ACCESS
 // ==============================================
 function setupSecretActivation() {
     const secretActivation = document.getElementById('secretActivation');
@@ -640,24 +550,262 @@ function unlockResponseTracker() {
     
     const unlockAnimation = document.getElementById('secretUnlockAnimation');
     unlockAnimation.style.display = 'flex';
-    document.getElementById('responseNavBtn').style.display = 'inline-flex';
     
     playNotificationSound();
     createUnlockCelebration();
     
     setTimeout(() => {
         unlockAnimation.style.display = 'none';
-        showNotification("Response Tracker unlocked! Check the navigation! 🔓");
-        changePage('response');
+        showResponseTracker();
     }, 3000);
 }
 
-function checkIfUnlocked() {
-    const isUnlocked = localStorage.getItem('responseTrackerUnlocked');
-    if (isUnlocked === 'true') {
-        responseUnlocked = true;
-        document.getElementById('responseNavBtn').style.display = 'inline-flex';
+function showResponseTracker() {
+    // Create the Response Tracker modal
+    const responseTrackerHTML = `
+        <div class="response-tracker-modal" id="responseTrackerModal">
+            <div class="response-tracker-content">
+                <button class="close-response-tracker" id="closeResponseTracker">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 class="section-title">Response Tracker 🔒</h2>
+                
+                <div class="response-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center; line-height: 1.6;">
+                    <strong>Secret Access Only!</strong><br>
+                    Only you (Lumumba) can see Elsy's response to your invitation.
+                </p>
+                
+                <div class="response-status" id="responseTrackerStatus">
+                    <p>Checking Elsy's response status...</p>
+                </div>
+                
+                <!-- Elsy's Response Display in Tracker -->
+                <div id="responseTrackerMessage" style="display: none;">
+                    <div class="response-icon" id="responseTrackerIcon">💖</div>
+                    <div class="response-message" id="responseTrackerText"></div>
+                    <div id="responseTrackerTime" style="color: #666; font-size: 1rem;"></div>
+                    
+                    <!-- Elsy's Custom Message Display -->
+                    <div class="response-details" id="responseTrackerDetails">
+                        <h3 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;">
+                            <i class="fas fa-comment-heart"></i>
+                            Elsy's Personal Message
+                        </h3>
+                        <div class="response-detail-item">
+                            <span class="response-detail-label">Response:</span>
+                            <span class="response-detail-value" id="responseTrackerStatusDetail"></span>
+                        </div>
+                        <div class="response-detail-item">
+                            <span class="response-detail-label">Her Message:</span>
+                            <span class="response-detail-value" id="responseTrackerMessageDetail"></span>
+                        </div>
+                        <div class="response-detail-item">
+                            <span class="response-detail-label">Date:</span>
+                            <span class="response-detail-value" id="responseTrackerDateDetail"></span>
+                        </div>
+                        <div class="response-detail-item">
+                            <span class="response-detail-label">Time:</span>
+                            <span class="response-detail-value" id="responseTrackerTimeDetail"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="check-status-btn" onclick="checkResponseTrackerStatus()">
+                    <i class="fas fa-sync-alt"></i>
+                    Check Response Status
+                </button>
+                
+                <div style="margin-top: 3rem; padding: 25px; background: linear-gradient(135deg, #fff5f5, #ffeaea); border-radius: 16px; border: 1px solid var(--light-red);">
+                    <h3 style="color: var(--primary-red); margin-bottom: 1rem; text-align: center;">How it works:</h3>
+                    <p style="font-size: 1rem; line-height: 1.6; color: #555;">
+                        When Elsy responds to your invitation, her actual message and response are secretly recorded. 
+                        Only you can access this page by clicking the ❤️ emoji three times in the top-left corner.
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add to body
+    document.body.insertAdjacentHTML('beforeend', responseTrackerHTML);
+    
+    // Add CSS for the modal
+    const style = document.createElement('style');
+    style.textContent = `
+        .response-tracker-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .response-tracker-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--light-red);
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-response-tracker {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 2001;
+        }
+        
+        .close-response-tracker:hover {
+            background: var(--dark-red);
+            transform: rotate(90deg);
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Show the tracker
+    document.getElementById('responseTrackerModal').style.display = 'flex';
+    
+    // Add close functionality
+    document.getElementById('closeResponseTracker').addEventListener('click', () => {
+        document.getElementById('responseTrackerModal').remove();
+        style.remove();
+    });
+    
+    // Close when clicking outside
+    document.getElementById('responseTrackerModal').addEventListener('click', (e) => {
+        if (e.target.id === 'responseTrackerModal') {
+            document.getElementById('responseTrackerModal').remove();
+            style.remove();
+        }
+    });
+    
+    // Check response status
+    setTimeout(() => checkResponseTrackerStatus(), 300);
+}
+
+function checkResponseTrackerStatus() {
+    const savedResponse = localStorage.getItem('elsyValentineResponse');
+    
+    if (savedResponse) {
+        elsyResponse = JSON.parse(savedResponse);
     }
+    
+    const responseStatus = document.getElementById('responseTrackerStatus');
+    const responseMessage = document.getElementById('responseTrackerMessage');
+    const responseIcon = document.getElementById('responseTrackerIcon');
+    const responseText = document.getElementById('responseTrackerText');
+    const responseTime = document.getElementById('responseTrackerTime');
+    const responseDetails = document.getElementById('responseTrackerDetails');
+    
+    if (responseStatus && elsyResponse.timestamp) {
+        responseStatus.style.display = 'none';
+        if (responseMessage) responseMessage.style.display = 'block';
+        if (responseDetails) responseDetails.style.display = 'block';
+        
+        const date = new Date(elsyResponse.timestamp);
+        
+        if (elsyResponse.accepted) {
+            if (responseIcon) responseIcon.innerHTML = '💖🎉';
+            if (responseText) {
+                responseText.innerHTML = "YES! Elsy has accepted your Valentine's invitation!";
+                responseText.style.color = '#2E7D32';
+            }
+            
+            if (document.getElementById('responseTrackerStatusDetail')) {
+                document.getElementById('responseTrackerStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
+                document.getElementById('responseTrackerMessageDetail').textContent = elsyResponse.customMessage || "She said YES!";
+                document.getElementById('responseTrackerDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('responseTrackerTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            }
+            
+            createCelebrationEffect();
+        } else {
+            if (responseIcon) responseIcon.innerHTML = '😢';
+            if (responseText) {
+                responseText.innerHTML = "Elsy has declined your invitation";
+                responseText.style.color = '#c62828';
+            }
+            
+            if (document.getElementById('responseTrackerStatusDetail')) {
+                document.getElementById('responseTrackerStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
+                document.getElementById('responseTrackerMessageDetail').textContent = elsyResponse.customMessage || "She couldn't make it";
+                document.getElementById('responseTrackerDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('responseTrackerTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            }
+        }
+        
+        if (responseTime) {
+            responseTime.innerHTML = `Response received: ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }
+    } else if (responseStatus) {
+        responseStatus.innerHTML = `
+            <p>Elsy hasn't responded yet. Check back after she visits the invitation page!</p>
+            <p style="margin-top: 10px; font-size: 1rem; color: #666;">
+                <i class="fas fa-info-circle"></i> She can leave a personal message when she responds!
+            </p>
+        `;
+        if (responseMessage) responseMessage.style.display = 'none';
+        if (responseDetails) responseDetails.style.display = 'none';
+    }
+    
+    // Animate the check button
+    const checkBtn = document.querySelector('#responseTrackerModal .check-status-btn');
+    if (checkBtn) {
+        checkBtn.innerHTML = '<i class="fas fa-check"></i> Status Updated';
+        checkBtn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+        
+        setTimeout(() => {
+            checkBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Check Response Status';
+            checkBtn.style.background = 'linear-gradient(135deg, #1976D2, #0D47A1)';
+        }, 2000);
+    }
+    
+    playNotificationSound();
 }
 
 // ==============================================
@@ -673,10 +821,6 @@ function setupNavigation() {
             changePage(pageId);
         });
     });
-    
-    if (responseUnlocked) {
-        checkResponseStatus();
-    }
 }
 
 function changePage(pageId) {
@@ -699,8 +843,6 @@ function changePage(pageId) {
     // Special effects for certain pages
     if (pageId === 'messages') {
         generateLoveMessage();
-    } else if (pageId === 'response' && responseUnlocked) {
-        setTimeout(() => checkResponseStatus(), 300);
     } else if (pageId === 'gallery') {
         setTimeout(() => {
             // Recalculate media sizes for mobile
