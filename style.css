@@ -660,7 +660,7 @@ body {
 
 .memory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin: 3rem 0;
 }
@@ -713,12 +713,12 @@ body {
 }
 
 /* =========================================== */
-/* GALLERY PAGE */
+/* GALLERY PAGE - UPDATED FOR MOBILE */
 /* =========================================== */
 .gallery-container {
     background: var(--white);
     border-radius: 24px;
-    padding: 50px 40px;
+    padding: 50px 20px;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--light-red);
     max-width: 1200px;
@@ -734,12 +734,13 @@ body {
     margin-left: auto;
     margin-right: auto;
     line-height: 1.7;
+    padding: 0 10px;
 }
 
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    gap: 25px;
     margin: 3rem 0;
 }
 
@@ -752,6 +753,10 @@ body {
     transition: var(--transition);
     border: 1px solid var(--light-red);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 320px;
 }
 
 .media-frame:hover {
@@ -762,10 +767,11 @@ body {
 
 .media-content {
     width: 100%;
-    height: 250px;
+    flex: 1;
     overflow: hidden;
     background: #f8f8f8;
     position: relative;
+    min-height: 200px;
 }
 
 .media-frame img,
@@ -794,6 +800,7 @@ body {
     font-weight: 500;
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 2;
 }
 
 .media-caption {
@@ -808,6 +815,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* =========================================== */
@@ -831,6 +841,8 @@ body {
     max-width: 90%;
     max-height: 80vh;
     position: relative;
+    width: auto;
+    height: auto;
 }
 
 .modal-content img,
@@ -840,10 +852,13 @@ body {
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     background: #000;
+    object-fit: contain;
 }
 
 .modal-content video {
     background: #000;
+    width: 100%;
+    height: auto;
 }
 
 .close-modal {
@@ -881,6 +896,8 @@ body {
     border-radius: 12px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* =========================================== */
@@ -928,6 +945,8 @@ body {
     text-align: center;
     line-height: 1.4;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* =========================================== */
@@ -1053,6 +1072,8 @@ body {
     display: none;
     text-align: center;
     animation: fadeIn 0.6s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .response-success {
@@ -1173,6 +1194,7 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .response-detail-label {
@@ -1186,6 +1208,8 @@ body {
     color: #333;
     line-height: 1.6;
     flex: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* =========================================== */
@@ -1247,6 +1271,7 @@ body {
     color: var(--primary-red);
     text-align: center;
     margin-bottom: 2rem;
+    padding: 0 20px;
 }
 
 .floating-hearts {
@@ -1290,6 +1315,8 @@ body {
     max-width: 90%;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.2);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .notification.show {
@@ -1329,7 +1356,7 @@ body {
     .nav-btn i { font-size: 1.1rem; }
     .welcome-container, .story-container, .gallery-container, .messages-container,
     .invitation-container, .secret-container, .response-container {
-        padding: 40px 25px; border-radius: 20px;
+        padding: 40px 20px; border-radius: 20px;
     }
     .names { font-size: 3.2rem; flex-direction: column; gap: 5px; }
     .and { font-size: 1.8rem; }
@@ -1338,7 +1365,7 @@ body {
     .intro-title { font-size: 3.5rem; }
     .intro-subtitle { font-size: 1.3rem; }
     .memory-grid { grid-template-columns: 1fr; gap: 20px; }
-    .gallery-grid { grid-template-columns: 1fr; gap: 25px; }
+    .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
     .love-message { font-size: 1.8rem; }
     .date-time { padding: 25px 20px; }
     .date-time p:first-child { font-size: 1.8rem; }
@@ -1348,8 +1375,10 @@ body {
     .music-player, .secret-activation { top: 20px; width: 55px; height: 55px; }
     .secret-emoji { font-size: 1.8rem; }
     .music-icon { font-size: 1.6rem; }
-    .media-content { height: 220px; }
-    .password-input { font-size: 1.1rem; padding: 15px 20px; }
+    .media-frame { min-height: 300px; }
+    .media-caption { padding: 15px; font-size: 0.95rem; min-height: 70px; }
+    .modal-caption { font-size: 1.1rem; padding: 15px; }
+    .unlock-message { font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
@@ -1362,36 +1391,13 @@ body {
     .nav-btn span { display: none; }
     .nav-btn i { font-size: 1.2rem; margin: 0; }
     .memory-card { padding: 25px 20px; }
-    .media-content { height: 200px; }
-    .music-player, .secret-activation { top: 15px; width: 50px; height: 50px; }
-    .secret-emoji { font-size: 1.6rem; }
-    .music-icon { font-size: 1.4rem; }
-    .intro-progress-container { width: 250px; }
-    .loading-progress-container { width: 280px; }
-}
-
-@media (max-width: 360px) {
-    .intro-title { font-size: 2.4rem; }
-    .names { font-size: 2.4rem; }
-    .section-title { font-size: 2rem; }
-    .love-btn { font-size: 1rem; padding: 14px 25px; }
-    .media-content { height: 180px; }
-}
-
-/* Touch-friendly improvements */
-@media (hover: none) and (pointer: coarse) {
-    .love-btn, .nav-btn, .rsvp-btn, .check-status-btn {
-        min-height: 48px; /* Minimum touch target size */
-    }
-    
-    .music-player, .secret-activation {
-        min-width: 56px;
-        min-height: 56px;
-    }
-    
-    .nav-btn {
-        padding: 16px 20px; /* Larger touch targets */
-    }
+    .media-content { min-height: 180px; }
+    .media-frame { min-height: 280px; }
+    .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
+    .rsvp-btn { padding: 18px 25px; font-size: 1.1rem; }
+    .modal-content { max-width: 95%; }
+    .notification { padding: 15px 25px; font-size: 0.9rem; }
+    .password-input { padding: 15px 20px; font-size: 1.1rem; }
 }
 
 @media (min-width: 1200px) {
@@ -1409,4 +1415,9 @@ body {
 
 .mt-3 {
     margin-top: 1.5rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
