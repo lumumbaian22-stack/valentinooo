@@ -1,13 +1,3 @@
-// ==============================================
-// ELSY & LUMUMBA'S VALENTINE WEBSITE
-// ==============================================
-// Lumumba: TO ADD YOUR PHOTOS & VIDEOS:
-// 1. Find the "mediaGallery" array below (around line 50-150)
-// 2. Replace the placeholder URLs with YOUR actual photo/video URLs
-// 3. Update the captions with your special memories
-// 4. Change the secret password to your actual first date
-// ==============================================
-
 // Initialize response tracking
 let elsyResponse = {
     accepted: false,
@@ -24,44 +14,44 @@ let responseUnlocked = false;
 let currentRSVPChoice = null;
 
 // ==============================================
-// MEDIA GALLERY - REPLACE THESE WITH YOUR PHOTOS & VIDEOS!
+// MEDIA GALLERY 
 // ==============================================
 let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
-        caption: "Our first date - I was so nervous but you made it perfect"
+        src: "media/new_image_6.jpg",
+        caption: "Our dates are always special to me my love"
     },
     {
         id: 2,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
-        caption: "That day at the beach - the sunset matched your smile"
+        src: "media/ninth_image.jpeg",
+        caption: "It wasn’t the phone, it was us.we always look good together"
     },
     {
         id: 3,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
-        caption: "Our first anniversary dinner - you took my breath away"
+        src: "media/new_image_2.jpeg",
+        caption: "Your happiness that day still warms me."
     },
     {
         id: 4,
         type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-having-fun-at-a-fair-7254-large.mp4",
-        caption: "That fun day at the fair - you winning me that teddy bear"
+        src: "media/new_video_5.jpg",
+        caption: "With you, time slows and hearts listen."
     },
     {
         id: 5,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
-        caption: "Our weekend getaway - just you, me, and endless conversations"
+        src: "media/new_image_1.jpeg",
+        caption: "Time with you rewrites my definition of happiness."
     },
     {
         id: 6,
         type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-and-hugging-on-the-beach-7565-large.mp4",
-        caption: "Walking hand in hand on the beach at sunset"
+        src: "media/new_video_5.jpg",
+        caption: "Your lips teaches my heart how love feels."
     }
 ];
 
@@ -146,7 +136,7 @@ function createCinematicIntro() {
 }
 
 // ==============================================
-// PREMIUM LOADING SCREEN
+// LOADING SCREEN
 // ==============================================
 function startLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
@@ -912,7 +902,7 @@ function checkPassword() {
     
     // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE!
     // Replace "0214" with your actual first date in MMDD format
-    if (password === "0214") { // CHANGE "0214" TO YOUR DATE!
+    if (password === "7011") { 
         secretMessage.style.display = 'block';
         secretMessageText.textContent = "Elsy, my love for you is eternal. No matter what happens, no matter where life takes us, my heart will always belong to you. This Valentine's Day is just the beginning of forever. I love you more than words could ever express. 💖 Forever yours, Lumumba";
         createHeartEffect();
@@ -922,7 +912,7 @@ function checkPassword() {
             setTimeout(() => createHeartEffect(), i * 100);
         }
     } else {
-        showNotification("That's not our special date, my love. Try again! 💖");
+        showNotification("That's not your m-pesa pin, my love. Try again! 💖");
     }
 }
 
