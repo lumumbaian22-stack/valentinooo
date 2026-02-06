@@ -188,47 +188,71 @@ function startLoadingScreen() {
 // ==============================================
 // ROMANTIC BACKGROUND MUSIC - FIXED PROPERLY
 // ==============================================
+let backgroundMusic = document.getElementById('backgroundMusic');
+let notificationSound = document.getElementById('notificationSound');
+let isMusicPlaying = false;
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const backgroundMusic = document.getElementById('backgroundMusic');
+function initializeMusicPlayer() {
+    backgroundMusic.volume = 0.4;
+    
     const musicPlayer = document.getElementById('musicPlayer');
     const playIcon = musicPlayer.querySelector('.fa-play');
     const pauseIcon = musicPlayer.querySelector('.fa-pause');
-
-    let isMusicPlaying = false;
-
-    backgroundMusic.volume = 0.4;
-
+    
+    // Set initial state
     playIcon.style.opacity = '1';
     pauseIcon.style.opacity = '0';
-
-    musicPlayer.addEventListener('click', function () {
-
+    
+    musicPlayer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
         if (isMusicPlaying) {
+            // Pause the music
             backgroundMusic.pause();
-            playIcon.style.opacity = '1';
-            pauseIcon.style.opacity = '0';
             musicPlayer.classList.remove('playing');
             musicPlayer.classList.add('paused');
+            playIcon.style.opacity = '1';
+            pauseIcon.style.opacity = '0';
+            showNotification("Music paused ⏸️");
         } else {
+            // Play the music
             backgroundMusic.play()
                 .then(() => {
-                    playIcon.style.opacity = '0';
-                    pauseIcon.style.opacity = '1';
+                    isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
+                    playIcon.style.opacity = '0';
+                    pauseIcon.style.opacity = '1';
+                    showNotification("Music playing 🎵");
                 })
                 .catch(error => {
                     console.log("Autoplay blocked:", error);
+                    showNotification("Click the button again to play music 🎵");
                 });
         }
-
         isMusicPlaying = !isMusicPlaying;
     });
+    
+    // Handle audio ending
+    backgroundMusic.addEventListener('ended', () => {
+        isMusicPlaying = false;
+        musicPlayer.classList.remove('playing');
+        musicPlayer.classList.add('paused');
+        playIcon.style.opacity = '1';
+        pauseIcon.style.opacity = '0';
+    });
+}
 
+function playNotificationSound() {
+    notificationSound.currentTime = 0;
+    notificationSound.volume = 0.5;
+    notificationSound.play().catch(e => console.log("Could not play notification sound"));
+}
+
+// Initialize when DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+    initializeMusicPlayer();
 });
-
 
 // ==============================================
 // INITIALIZE EVERYTHING
@@ -1029,6 +1053,7 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
 
 
 
