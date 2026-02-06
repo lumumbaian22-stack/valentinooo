@@ -38,7 +38,7 @@ let mediaGallery = [
     {
         id: 4,
         type: "video",
-        src: "media/new_video_5.jpg",
+        src: "media/newest_video_mp4",
         caption: "With you, time slows and hearts listen."
     },
     {
@@ -1063,3 +1063,4 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
