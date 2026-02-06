@@ -2,10 +2,9 @@
 // ELSY & LUMUMBA'S VALENTINE WEBSITE
 // ==============================================
 // Lumumba: TO ADD YOUR PHOTOS & VIDEOS:
-// 1. Find the "mediaGallery" array below
-// 2. Replace the placeholder URLs with YOUR actual photo/video URLs
-// 3. Update the captions with your special memories
-// 4. Change the secret password to your actual first date
+// 1. Replace the placeholder URLs in mediaGallery array with YOUR actual photo/video URLs
+// 2. Update the captions with your special memories
+// 3. Change the secret password to your actual first date
 // ==============================================
 
 // Initialize response tracking
@@ -23,30 +22,8 @@ let responseUnlocked = false;
 // Current RSVP choice
 let currentRSVPChoice = null;
 
-// Background music
-let backgroundMusic = document.getElementById('backgroundMusic');
-let notificationSound = document.getElementById('notificationSound');
-let isMusicPlaying = false;
-let musicAutoStarted = false;
-
 // ==============================================
-// LOVE MESSAGES
-// ==============================================
-const loveMessages = [
-    "Elsy, your smile is the first thing I think of when I wake up and the last thing I dream about at night.",
-    "Every moment with you feels like a beautiful dream I never want to wake up from.",
-    "If I had to choose between breathing and loving you, I would use my last breath to tell you I love you.",
-    "You are the missing piece I never knew I was searching for, Elsy.",
-    "My love for you grows stronger with each passing day, like a river that never runs dry.",
-    "In your eyes, I found my home. In your heart, I found my peace.",
-    "Elsy, you are the reason I believe in soulmates. We were meant to find each other.",
-    "Loving you is the easiest and most natural thing I've ever done.",
-    "If love were a journey, I'd travel the world with you, hand in hand, forever.",
-    "You are my today and all of my tomorrows, Elsy."
-];
-
-// ==============================================
-// MEDIA GALLERY - REPLACE THESE WITH YOUR PHOTOS!
+// MEDIA GALLERY - REPLACE THESE WITH YOUR PHOTOS & VIDEOS!
 // ==============================================
 let mediaGallery = [
     {
@@ -69,22 +46,52 @@ let mediaGallery = [
     },
     {
         id: 4,
+        type: "video",
+        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-having-fun-at-a-fair-7254-large.mp4",
+        caption: "That fun day at the fair - you winning me that teddy bear",
+        thumbnail: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop"
+    },
+    {
+        id: 5,
         type: "photo",
         src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
         caption: "Our weekend getaway - just you, me, and endless conversations"
     },
     {
-        id: 5,
+        id: 6,
+        type: "video",
+        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-and-hugging-on-the-beach-7565-large.mp4",
+        caption: "Walking hand in hand on the beach at sunset",
+        thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&h=600&fit=crop"
+    },
+    {
+        id: 7,
         type: "photo",
         src: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop",
         caption: "That surprise birthday party I threw for you"
     },
     {
-        id: 6,
+        id: 8,
         type: "photo",
         src: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&h=600&fit=crop",
         caption: "Our first Christmas together - you made it magical"
     }
+];
+
+// ==============================================
+// LOVE MESSAGES
+// ==============================================
+const loveMessages = [
+    "Elsy, your smile is the first thing I think of when I wake up and the last thing I dream about at night.",
+    "Every moment with you feels like a beautiful dream I never want to wake up from.",
+    "If I had to choose between breathing and loving you, I would use my last breath to tell you I love you.",
+    "You are the missing piece I never knew I was searching for, Elsy.",
+    "My love for you grows stronger with each passing day, like a river that never runs dry.",
+    "In your eyes, I found my home. In your heart, I found my peace.",
+    "Elsy, you are the reason I believe in soulmates. We were meant to find each other.",
+    "Loving you is the easiest and most natural thing I've ever done.",
+    "If love were a journey, I'd travel the world with you, hand in hand, forever.",
+    "You are my today and all of my tomorrows, Elsy."
 ];
 
 // ==============================================
@@ -203,36 +210,20 @@ function startLoadingScreen() {
 }
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC
+// ROMANTIC BACKGROUND MUSIC - UPDATED
 // ==============================================
+let backgroundMusic = document.getElementById('backgroundMusic');
+let notificationSound = document.getElementById('notificationSound');
+let isMusicPlaying = false;
+
 function startBackgroundMusic() {
-    backgroundMusic.volume = 0.3;
+    // Set initial volume
+    backgroundMusic.volume = 0.4;
     
-    // Try to autoplay on user interaction
-    const tryAutoplay = () => {
-        if (!musicAutoStarted) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicAutoStarted = true;
-                    document.getElementById('musicPlayer').classList.add('playing');
-                    document.getElementById('musicPlayer').classList.remove('paused');
-                    showNotification("Romantic music started 🎵");
-                })
-                .catch(e => {
-                    console.log("Autoplay prevented, waiting for user interaction");
-                    // Show instruction to tap to start music
-                });
-        }
-    };
-    
-    // Try autoplay after a short delay
-    setTimeout(tryAutoplay, 1000);
-    
-    // Setup music player controls
     const musicPlayer = document.getElementById('musicPlayer');
-    musicPlayer.addEventListener('click', (e) => {
-        e.stopPropagation();
+    
+    // Music toggle function
+    const toggleMusic = () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
             musicPlayer.classList.remove('playing');
@@ -245,26 +236,33 @@ function startBackgroundMusic() {
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
                     showNotification("Music playing 🎵");
+                })
+                .catch(e => {
+                    console.log("Autoplay prevented:", e);
+                    showNotification("Tap the music player to start music 🎵");
                 });
         }
         isMusicPlaying = !isMusicPlaying;
+    };
+    
+    // Add click event to music player
+    musicPlayer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMusic();
     });
     
-    // Allow user to start music by tapping anywhere
-    document.addEventListener('click', function startMusicOnClick() {
-        if (!musicAutoStarted) {
+    // Try to auto-play music (will work on most browsers with user interaction)
+    document.addEventListener('click', () => {
+        if (!isMusicPlaying) {
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
-                    musicAutoStarted = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
                 })
                 .catch(e => {
-                    console.log("Could not start music");
+                    console.log("Auto-play prevented");
                 });
-            // Remove the event listener after first attempt
-            document.removeEventListener('click', startMusicOnClick);
         }
     }, { once: true });
 }
@@ -283,7 +281,6 @@ function initializeEverything() {
     setupSecretActivation();
     checkIfUnlocked();
     setupNavigation();
-    setupMediaModal();
     initializeMediaGallery();
     
     // Check for saved response on load
@@ -411,11 +408,20 @@ function initializeMediaGallery() {
                     <img src="${media.src}" alt="Memory photo" loading="lazy">
                 </div>
             `;
+        } else if (media.type === 'video') {
+            const thumbnail = media.thumbnail || media.src;
+            mediaContent = `
+                <div class="media-content">
+                    <video preload="metadata" poster="${thumbnail}">
+                        <source src="${media.src}" type="video/mp4">
+                    </video>
+                </div>
+            `;
         }
         
         mediaElement.innerHTML = `
             ${mediaContent}
-            <div class="media-type">📷 Photo</div>
+            <div class="media-type">${media.type === 'photo' ? '📷 Photo' : '🎥 Video'}</div>
             <div class="media-caption">${media.caption}</div>
         `;
         
@@ -437,33 +443,39 @@ function openMediaModal(media) {
         img.src = media.src;
         img.alt = media.caption;
         img.onload = function() {
+            // Adjust display based on image dimensions for mobile
             const aspectRatio = this.naturalWidth / this.naturalHeight;
-            if (aspectRatio > 1) {
-                this.style.maxWidth = '90vw';
-                this.style.maxHeight = '80vh';
+            if (window.innerWidth < 768) {
+                // Mobile: full width, auto height
+                this.style.maxWidth = '100%';
+                this.style.maxHeight = '70vh';
+                this.style.width = 'auto';
+                this.style.height = 'auto';
             } else {
-                this.style.maxWidth = '70vw';
-                this.style.maxHeight = '90vh';
+                // Desktop: adjust based on aspect ratio
+                if (aspectRatio > 1) {
+                    this.style.maxWidth = '90vw';
+                    this.style.maxHeight = '80vh';
+                } else {
+                    this.style.maxWidth = '70vw';
+                    this.style.maxHeight = '90vh';
+                }
             }
         };
         modalContent.appendChild(img);
+    } else if (media.type === 'video') {
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.style.maxWidth = '90vw';
+        video.style.maxHeight = '80vh';
+        modalContent.appendChild(video);
     }
     
     modalCaption.textContent = media.caption;
     modal.style.display = 'flex';
     playNotificationSound();
-}
-
-function setupMediaModal() {
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('mediaModal').style.display = 'none';
-    });
-    
-    document.getElementById('mediaModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.style.display = 'none';
-        }
-    });
 }
 
 // ==============================================
@@ -867,6 +879,34 @@ function showNotification(message) {
         }, 500);
     }, 3000);
 }
+
+// ==============================================
+// SETUP MEDIA MODAL
+// ==============================================
+function setupMediaModal() {
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('mediaModal').style.display = 'none';
+        const video = document.querySelector('#mediaModal video');
+        if (video) {
+            video.pause();
+        }
+    });
+    
+    document.getElementById('mediaModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            const video = document.querySelector('#mediaModal video');
+            if (video) {
+                video.pause();
+            }
+        }
+    });
+}
+
+// Initialize modal on load
+document.addEventListener('DOMContentLoaded', function() {
+    setupMediaModal();
+});
 
 // ==============================================
 // START EVERYTHING
