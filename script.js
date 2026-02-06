@@ -29,51 +29,51 @@ let mediaGallery = [
     {
         id: 1,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop",
+        src: "media/first_image.jpeg",
         caption: "Our first date - I was so nervous but you made it perfect"
     },
     {
         id: 2,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&h=600&fit=crop",
+        src: "media/new_image_1.jpeg",
         caption: "That day at the beach - the sunset matched your smile"
     },
     {
         id: 3,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?w=800&h=600&fit=crop",
+        src: "media/new_image_2.jpeg",
         caption: "Our first anniversary dinner - you took my breath away"
     },
     {
         id: 4,
         type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-having-fun-at-a-fair-7254-large.mp4",
+        src: "media/fourth_video.mp4",
         caption: "That fun day at the fair - you winning me that teddy bear",
         thumbnail: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop"
     },
     {
         id: 5,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1526417501783-5d6c2cbf6e73?w=800&h=600&fit=crop",
+        src: "media/ninth_image.jpeg",
         caption: "Our weekend getaway - just you, me, and endless conversations"
     },
     {
         id: 6,
         type: "video",
-        src: "https://assets.mixkit.co/videos/preview/mixkit-couple-walking-and-hugging-on-the-beach-7565-large.mp4",
+        src: "media/new_video_3.mp4",
         caption: "Walking hand in hand on the beach at sunset",
         thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&h=600&fit=crop"
     },
     {
         id: 7,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop",
+        src: "media/new_image_2.jpeg",
         caption: "That surprise birthday party I threw for you"
     },
     {
         id: 8,
         type: "photo",
-        src: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&h=600&fit=crop",
+        src: "media/first_image.jpeg",
         caption: "Our first Christmas together - you made it magical"
     }
 ];
@@ -95,16 +95,15 @@ const loveMessages = [
 ];
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC - AUTOPLAY FIXED
+// ROMANTIC BACKGROUND MUSIC - SIMPLIFIED
 // ==============================================
 let backgroundMusic = document.getElementById('backgroundMusic');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
-let musicStarted = false;
 
 function startBackgroundMusic() {
-    // Set initial volume
-    backgroundMusic.volume = 0.4;
+    // Set initial volume - lower for autoplay
+    backgroundMusic.volume = 0.3;
     backgroundMusic.loop = false; // No looping as requested
     
     const musicPlayer = document.getElementById('musicPlayer');
@@ -138,57 +137,20 @@ function startBackgroundMusic() {
         toggleMusic();
     });
     
-    // Try to auto-play when user interacts with the page
-    const startMusicOnInteraction = () => {
-        if (!musicStarted) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicStarted = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
-                    showNotification("Romantic music started 🎵");
-                })
-                .catch(e => {
-                    console.log("Auto-play prevented, waiting for user interaction");
-                    // Show notification to click music player
-                    showNotification("Click the music player to start romantic music 🎵");
-                });
-        }
-    };
-    
-    // Try to start music on any user interaction
-    document.addEventListener('click', startMusicOnInteraction, { once: true });
-    document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
-    document.addEventListener('keydown', startMusicOnInteraction, { once: true });
-    
-    // Also try when page loads (some browsers allow this with low volume)
+    // Try to auto-play with a small delay
     setTimeout(() => {
-        if (!musicStarted) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicStarted = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
-                })
-                .catch(e => {
-                    // Auto-play failed, will wait for user interaction
-                    console.log("Initial auto-play failed:", e);
-                });
-        }
-    }, 1000);
-}
-
-function playNotificationSound() {
-    notificationSound.currentTime = 0;
-    notificationSound.volume = 0.5;
-    notificationSound.play().catch(e => console.log("Could not play notification sound"));
-}
-function playNotificationSound() {
-    notificationSound.currentTime = 0;
-    notificationSound.volume = 0.5;
-    notificationSound.play().catch(e => console.log("Could not play notification sound"));
+        backgroundMusic.play()
+            .then(() => {
+                isMusicPlaying = true;
+                musicPlayer.classList.add('playing');
+                musicPlayer.classList.remove('paused');
+            })
+            .catch(e => {
+                console.log("Initial auto-play failed:", e);
+                // Show notification to click music player
+                showNotification("Click the music player to start romantic music 🎵");
+            });
+    }, 1500);
 }
 
 // ==============================================
