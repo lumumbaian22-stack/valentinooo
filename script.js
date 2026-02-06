@@ -186,82 +186,49 @@ function startLoadingScreen() {
 }
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC - FIXED
+// ROMANTIC BACKGROUND MUSIC - FIXED PROPERLY
 // ==============================================
-let backgroundMusic = document.getElementById('backgroundMusic');
-let notificationSound = document.getElementById('notificationSound');
-let isMusicPlaying = false;
 
-function initializeMusicPlayer() {
-    backgroundMusic.volume = 10;
-    
+document.addEventListener("DOMContentLoaded", function () {
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
     const musicPlayer = document.getElementById('musicPlayer');
     const playIcon = musicPlayer.querySelector('.fa-play');
     const pauseIcon = musicPlayer.querySelector('.fa-pause');
-    
-    // Set initial state
+
+    let isMusicPlaying = false;
+
+    backgroundMusic.volume = 0.4;
+
     playIcon.style.opacity = '1';
     pauseIcon.style.opacity = '0';
-    
-    musicPlayer.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
+
+    musicPlayer.addEventListener('click', function () {
+
         if (isMusicPlaying) {
-            // Pause the music
             backgroundMusic.pause();
-            musicPlayer.classList.remove('playing');
-            musicPlayer.classList.add('paused');
             playIcon.style.opacity = '1';
             pauseIcon.style.opacity = '0';
-            showNotification("Music paused ⏸️");
+            musicPlayer.classList.remove('playing');
+            musicPlayer.classList.add('paused');
         } else {
-            // Play the music
             backgroundMusic.play()
                 .then(() => {
-                    isMusicPlaying = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
                     playIcon.style.opacity = '0';
                     pauseIcon.style.opacity = '1';
-                    showNotification("Music playing 🎵");
+                    musicPlayer.classList.add('playing');
+                    musicPlayer.classList.remove('paused');
                 })
                 .catch(error => {
-                    console.error("Error playing music:", error);
-                    showNotification("Click the button again to play music 🎵");
-                    // Try autoplay with user gesture
-                    document.addEventListener('click', function playOnClick() {
-                        backgroundMusic.play()
-                            .then(() => {
-                                isMusicPlaying = true;
-                                musicPlayer.classList.add('playing');
-                                musicPlayer.classList.remove('paused');
-                                playIcon.style.opacity = '0';
-                                pauseIcon.style.opacity = '1';
-                                showNotification("Music playing 🎵");
-                            })
-                            .catch(e => console.error("Still can't play:", e));
-                        document.removeEventListener('click', playOnClick);
-                    }, { once: true });
+                    console.log("Autoplay blocked:", error);
                 });
         }
+
         isMusicPlaying = !isMusicPlaying;
     });
-    
-    // Handle audio ending
-    backgroundMusic.addEventListener('ended', () => {
-        isMusicPlaying = false;
-        musicPlayer.classList.remove('playing');
-        musicPlayer.classList.add('paused');
-        playIcon.style.opacity = '1';
-        pauseIcon.style.opacity = '0';
-    });
-}
 
-function playNotificationSound() {
-    notificationSound.currentTime = 0;
-    notificationSound.volume = 0.5;
-    notificationSound.play().catch(e => console.log("Could not play notification sound"));
-}
+});
+
 
 // ==============================================
 // INITIALIZE EVERYTHING
@@ -1062,6 +1029,7 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
 
 
 
