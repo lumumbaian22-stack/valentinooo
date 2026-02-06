@@ -87,24 +87,22 @@ const loveMessages = [
 ];
 
 // ==============================================
-// CINEMATIC INTRO ANIMATION
+// SIMPLIFIED CINEMATIC INTRO ANIMATION
 // ==============================================
 function createCinematicIntro() {
     const introHearts = document.getElementById('introHearts');
     const introProgress = document.getElementById('introProgress');
     
     // Create floating hearts for intro
-    for (let i = 0; i < 25; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.className = 'intro-heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.animationDelay = `${Math.random() * 3}s`;
-            heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
-            heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-            introHearts.appendChild(heart);
-        }, i * 100);
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'intro-heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDelay = `${Math.random() * 3}s`;
+        heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+        heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+        introHearts.appendChild(heart);
     }
     
     // Animate title and subtitle
@@ -112,40 +110,41 @@ function createCinematicIntro() {
     const subtitle = document.querySelector('.intro-subtitle');
     const date = document.querySelector('.intro-date');
     
-    // Progress animation
+    // Show elements immediately
+    setTimeout(() => {
+        title.style.opacity = '1';
+        title.style.transform = 'translateY(0)';
+        title.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+    }, 500);
+    
+    setTimeout(() => {
+        subtitle.style.opacity = '1';
+        subtitle.style.transform = 'translateY(0)';
+        subtitle.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+    }, 1000);
+    
+    setTimeout(() => {
+        date.style.opacity = '1';
+        date.style.transform = 'translateY(0)';
+        date.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+    }, 1500);
+    
+    // Progress animation - SIMPLIFIED
     let progress = 0;
     const progressInterval = setInterval(() => {
-        progress += 1;
+        progress += 2;
         introProgress.style.width = `${progress}%`;
-        
-        if (progress >= 20) {
-            title.style.opacity = '1';
-            title.style.transform = 'translateY(0)';
-            title.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
-        
-        if (progress >= 40) {
-            subtitle.style.opacity = '1';
-            subtitle.style.transform = 'translateY(0)';
-            subtitle.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
-        
-        if (progress >= 60) {
-            date.style.opacity = '1';
-            date.style.transform = 'translateY(0)';
-            date.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-        }
         
         if (progress >= 100) {
             clearInterval(progressInterval);
+            // Quick transition to loading screen
+            document.getElementById('cinematicIntro').style.opacity = '0';
+            document.getElementById('cinematicIntro').style.transition = 'opacity 0.8s ease';
+            
             setTimeout(() => {
-                document.getElementById('cinematicIntro').style.opacity = '0';
-                document.getElementById('cinematicIntro').style.pointerEvents = 'none';
-                setTimeout(() => {
-                    document.getElementById('cinematicIntro').style.display = 'none';
-                    startLoadingScreen();
-                }, 1000);
-            }, 500);
+                document.getElementById('cinematicIntro').style.display = 'none';
+                startLoadingScreen();
+            }, 800);
         }
     }, 40);
 }
@@ -158,9 +157,10 @@ function startLoadingScreen() {
     const loadingProgress = document.getElementById('loadingProgress');
     const loadingText = document.getElementById('loadingText');
     
-    // Show loading screen
+    // Show loading screen immediately
     loadingScreen.style.opacity = '1';
     loadingScreen.style.pointerEvents = 'all';
+    loadingScreen.style.display = 'flex';
     
     // Loading messages
     const loadingMessages = [
@@ -174,7 +174,7 @@ function startLoadingScreen() {
     // Simulate loading with progress bar
     let progress = 0;
     const loadingInterval = setInterval(() => {
-        progress += Math.random() * 8 + 2;
+        progress += Math.random() * 10 + 5;
         if (progress > 100) progress = 100;
         loadingProgress.style.width = `${progress}%`;
         
@@ -190,149 +190,115 @@ function startLoadingScreen() {
             setTimeout(() => {
                 loadingScreen.style.opacity = '0';
                 loadingScreen.style.pointerEvents = 'none';
-                document.getElementById('websiteContent').style.display = 'block';
-                startBackgroundMusic();
-                createFloatingHearts();
+                loadingScreen.style.transition = 'opacity 0.8s ease';
+                
                 setTimeout(() => {
-                    initializeEverything();
-                }, 100);
-            }, 800);
+                    loadingScreen.style.display = 'none';
+                    document.getElementById('websiteContent').style.display = 'block';
+                    createFloatingHearts();
+                    setTimeout(() => {
+                        initializeEverything();
+                    }, 300);
+                }, 800);
+            }, 500);
         }
-    }, 150);
+    }, 100);
 }
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC - IMPROVED
+// ROMANTIC BACKGROUND MUSIC - SIMPLIFIED
 // ==============================================
-let backgroundMusic = null;
-let notificationSound = null;
-let isMusicPlaying = false;
-let musicInitialized = false;
-
 function startBackgroundMusic() {
-    backgroundMusic = document.getElementById('backgroundMusic');
-    notificationSound = document.getElementById('notificationSound');
-    
-    if (!backgroundMusic) {
-        console.error("Background music element not found!");
-        return;
-    }
-    
-    // Set volume
-    backgroundMusic.volume = 0.3;
-    
-    // Preload the audio
-    backgroundMusic.load();
-    
-    // Get music player button
-    const musicPlayer = document.getElementById('musicPlayer');
-    if (!musicPlayer) {
-        console.error("Music player button not found!");
-        return;
-    }
-    
-    // Initialize play/pause icons
-    const playIcon = musicPlayer.querySelector('.fa-play');
-    const pauseIcon = musicPlayer.querySelector('.fa-pause');
-    
-    if (playIcon && pauseIcon) {
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-    }
-    
-    // Add click event for music player
-    musicPlayer.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
+    try {
+        backgroundMusic = document.getElementById('backgroundMusic');
+        notificationSound = document.getElementById('notificationSound');
         
-        toggleMusic();
-    });
-    
-    // Try to play music on any user interaction
-    const playOnInteraction = () => {
-        if (!isMusicPlaying && !musicInitialized) {
-            backgroundMusic.play()
-                .then(() => {
-                    isMusicPlaying = true;
-                    musicPlayer.classList.add('playing');
-                    musicPlayer.classList.remove('paused');
-                    if (playIcon && pauseIcon) {
-                        playIcon.style.display = 'none';
-                        pauseIcon.style.display = 'block';
-                    }
-                    musicInitialized = true;
-                    console.log("Music started automatically");
-                })
-                .catch(error => {
-                    console.log("Auto-play prevented, waiting for manual start:", error);
-                    // Show instruction
-                    musicPlayer.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
-                    musicPlayer.title = "Click to start music";
-                });
+        if (!backgroundMusic) {
+            console.log("Background music element not found");
+            return;
         }
-    };
-    
-    // Add multiple event listeners for user interaction
-    const events = ['click', 'touchstart', 'mousedown', 'keydown'];
-    events.forEach(event => {
-        document.addEventListener(event, playOnInteraction, { once: true });
-    });
-    
-    // Show notification to start music
-    setTimeout(() => {
-        if (!isMusicPlaying) {
-            showNotification("Click the music button to start romantic music 🎵");
+        
+        // Set volume
+        backgroundMusic.volume = 0.3;
+        
+        // Get music player button
+        const musicPlayer = document.getElementById('musicPlayer');
+        if (!musicPlayer) {
+            console.log("Music player button not found");
+            return;
         }
-    }, 2000);
-}
-
-function toggleMusic() {
-    const musicPlayer = document.getElementById('musicPlayer');
-    const playIcon = musicPlayer.querySelector('.fa-play');
-    const pauseIcon = musicPlayer.querySelector('.fa-pause');
-    
-    if (!backgroundMusic) {
-        console.error("Background music not initialized");
-        return;
-    }
-    
-    if (isMusicPlaying) {
-        backgroundMusic.pause();
-        isMusicPlaying = false;
-        musicPlayer.classList.remove('playing');
-        musicPlayer.classList.add('paused');
-        if (playIcon && pauseIcon) {
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-        }
-        showNotification("Music paused ⏸️");
-    } else {
-        backgroundMusic.play()
-            .then(() => {
-                isMusicPlaying = true;
-                musicPlayer.classList.add('playing');
-                musicPlayer.classList.remove('paused');
-                if (playIcon && pauseIcon) {
-                    playIcon.style.display = 'none';
-                    pauseIcon.style.display = 'block';
-                }
-                showNotification("Music playing 🎵");
-                musicPlayer.style.background = ''; // Reset color
-                musicPlayer.title = "Click to pause music";
-            })
-            .catch(error => {
-                console.error("Error playing music:", error);
-                showNotification("Could not play music. Please check your file.");
-                musicPlayer.style.background = 'linear-gradient(135deg, #c62828, #b71c1c)';
-            });
+        
+        // Simple click handler
+        musicPlayer.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                musicPlayer.classList.remove('playing');
+                musicPlayer.classList.add('paused');
+                showNotification("Music paused ⏸️");
+            } else {
+                backgroundMusic.play()
+                    .then(() => {
+                        isMusicPlaying = true;
+                        musicPlayer.classList.add('playing');
+                        musicPlayer.classList.remove('paused');
+                        showNotification("Music playing 🎵");
+                    })
+                    .catch(error => {
+                        console.log("Could not play music:", error);
+                        showNotification("Click anywhere to enable music 🎵");
+                        // Try again on next click
+                        document.addEventListener('click', function tryPlay() {
+                            backgroundMusic.play()
+                                .then(() => {
+                                    isMusicPlaying = true;
+                                    musicPlayer.classList.add('playing');
+                                    musicPlayer.classList.remove('paused');
+                                    showNotification("Music playing 🎵");
+                                })
+                                .catch(e => console.log("Still couldn't play"));
+                            document.removeEventListener('click', tryPlay);
+                        }, { once: true });
+                    });
+            }
+        });
+        
+        // Try to auto-play after user interacts with page
+        const tryAutoPlay = () => {
+            if (!isMusicPlaying) {
+                backgroundMusic.play()
+                    .then(() => {
+                        isMusicPlaying = true;
+                        musicPlayer.classList.add('playing');
+                        musicPlayer.classList.remove('paused');
+                    })
+                    .catch(e => {
+                        // Auto-play failed, that's okay
+                        console.log("Auto-play prevented");
+                    });
+            }
+        };
+        
+        // Try auto-play after a short delay
+        setTimeout(tryAutoPlay, 1000);
+        
+    } catch (error) {
+        console.error("Error setting up music:", error);
     }
 }
 
 function playNotificationSound() {
-    if (notificationSound) {
-        notificationSound.currentTime = 0;
-        notificationSound.volume = 0.3;
-        notificationSound.play().catch(e => console.log("Could not play notification sound"));
+    try {
+        if (notificationSound) {
+            notificationSound.currentTime = 0;
+            notificationSound.volume = 0.3;
+            notificationSound.play().catch(e => console.log("Notification sound error"));
+        }
+    } catch (error) {
+        console.log("Could not play notification sound");
     }
 }
 
@@ -340,22 +306,35 @@ function playNotificationSound() {
 // INITIALIZE EVERYTHING
 // ==============================================
 function initializeEverything() {
+    console.log("Initializing website...");
+    
+    // Initialize components
     generateLoveMessage();
     setupSecretActivation();
     checkIfUnlocked();
     setupNavigation();
     initializeMediaGallery();
+    setupMediaModal();
     
     // Check for saved response on load
-    const savedResponse = localStorage.getItem('elsyValentineResponse');
-    if (savedResponse) {
-        elsyResponse = JSON.parse(savedResponse);
+    try {
+        const savedResponse = localStorage.getItem('elsyValentineResponse');
+        if (savedResponse) {
+            elsyResponse = JSON.parse(savedResponse);
+        }
+    } catch (error) {
+        console.log("Could not load saved response");
     }
+    
+    // Start background music
+    startBackgroundMusic();
     
     // Add heartbeat animation to all heart icons
     document.querySelectorAll('.welcome-heart').forEach(icon => {
         icon.style.animation = 'heartbeat 1.8s infinite';
     });
+    
+    console.log("Website initialized successfully!");
 }
 
 // ==============================================
@@ -446,7 +425,11 @@ function saveResponse(accepted, customMessage = "") {
         `Elsy has declined your invitation. 😢`;
     
     // Save to localStorage
-    localStorage.setItem('elsyValentineResponse', JSON.stringify(elsyResponse));
+    try {
+        localStorage.setItem('elsyValentineResponse', JSON.stringify(elsyResponse));
+    } catch (error) {
+        console.log("Could not save response to localStorage");
+    }
 }
 
 // ==============================================
@@ -454,6 +437,11 @@ function saveResponse(accepted, customMessage = "") {
 // ==============================================
 function initializeMediaGallery() {
     const gallery = document.getElementById('mediaGallery');
+    
+    if (!gallery) {
+        console.log("Gallery element not found");
+        return;
+    }
     
     // Clear gallery
     gallery.innerHTML = '';
@@ -468,7 +456,7 @@ function initializeMediaGallery() {
         if (media.type === 'photo') {
             mediaContent = `
                 <div class="media-content">
-                    <img src="${media.src}" alt="Memory photo" loading="lazy">
+                    <img src="${media.src}" alt="Memory photo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop'">
                 </div>
             `;
         } else if (media.type === 'video') {
@@ -498,6 +486,11 @@ function openMediaModal(media) {
     const modalContent = document.getElementById('modalContent');
     const modalCaption = document.getElementById('modalCaption');
     
+    if (!modal || !modalContent || !modalCaption) {
+        console.log("Modal elements not found");
+        return;
+    }
+    
     // Clear previous content
     modalContent.innerHTML = '';
     
@@ -505,16 +498,8 @@ function openMediaModal(media) {
         const img = document.createElement('img');
         img.src = media.src;
         img.alt = media.caption;
-        img.onload = function() {
-            const aspectRatio = this.naturalWidth / this.naturalHeight;
-            if (aspectRatio > 1) {
-                this.style.maxWidth = '90vw';
-                this.style.maxHeight = '80vh';
-            } else {
-                this.style.maxWidth = '70vw';
-                this.style.maxHeight = '90vh';
-            }
-        };
+        img.style.maxWidth = '90vw';
+        img.style.maxHeight = '80vh';
         modalContent.appendChild(img);
     } else if (media.type === 'video') {
         const video = document.createElement('video');
@@ -531,25 +516,33 @@ function openMediaModal(media) {
     playNotificationSound();
 }
 
-// Setup media modal close button
 function setupMediaModal() {
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('mediaModal').style.display = 'none';
-        const video = document.querySelector('#mediaModal video');
-        if (video) {
-            video.pause();
-        }
-    });
+    const closeBtn = document.getElementById('closeModal');
+    const modal = document.getElementById('mediaModal');
     
-    document.getElementById('mediaModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.style.display = 'none';
-            const video = document.querySelector('#mediaModal video');
-            if (video) {
-                video.pause();
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            if (modal) {
+                modal.style.display = 'none';
+                const video = document.querySelector('#mediaModal video');
+                if (video) {
+                    video.pause();
+                }
             }
-        }
-    });
+        });
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                const video = document.querySelector('#mediaModal video');
+                if (video) {
+                    video.pause();
+                }
+            }
+        });
+    }
 }
 
 // ==============================================
@@ -559,7 +552,11 @@ function checkResponseStatus() {
     const savedResponse = localStorage.getItem('elsyValentineResponse');
     
     if (savedResponse) {
-        elsyResponse = JSON.parse(savedResponse);
+        try {
+            elsyResponse = JSON.parse(savedResponse);
+        } catch (error) {
+            console.log("Could not parse saved response");
+        }
     }
     
     const responseStatus = document.getElementById('responseStatus');
@@ -569,74 +566,94 @@ function checkResponseStatus() {
     const responseTime = document.getElementById('responseTime');
     const responseDetails = document.getElementById('responseDetails');
     
+    if (!responseStatus || !responseMessage) {
+        console.log("Response elements not found");
+        return;
+    }
+    
     if (elsyResponse.timestamp) {
         responseStatus.style.display = 'none';
         responseMessage.style.display = 'block';
-        responseDetails.style.display = 'block';
         
         const date = new Date(elsyResponse.timestamp);
         
         if (elsyResponse.accepted) {
-            responseIcon.innerHTML = '💖🎉';
-            responseText.innerHTML = "YES! Elsy has accepted your Valentine's invitation!";
-            responseText.style.color = '#2E7D32';
+            if (responseIcon) responseIcon.innerHTML = '💖🎉';
+            if (responseText) {
+                responseText.innerHTML = "YES! Elsy has accepted your Valentine's invitation!";
+                responseText.style.color = '#2E7D32';
+            }
             
-            document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
-            document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She said YES!";
-            document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
+            if (responseDetails) {
+                responseDetails.style.display = 'block';
+                document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #2E7D32; font-weight: 600;">Accepted 💖</span>';
+                document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She said YES!";
+                document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            }
             
             createCelebrationEffect();
         } else {
-            responseIcon.innerHTML = '😢';
-            responseText.innerHTML = "Elsy has declined your invitation";
-            responseText.style.color = '#c62828';
+            if (responseIcon) responseIcon.innerHTML = '😢';
+            if (responseText) {
+                responseText.innerHTML = "Elsy has declined your invitation";
+                responseText.style.color = '#c62828';
+            }
             
-            document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
-            document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She couldn't make it";
-            document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
+            if (responseDetails) {
+                responseDetails.style.display = 'block';
+                document.getElementById('responseStatusDetail').innerHTML = '<span style="color: #c62828; font-weight: 600;">Declined 😢</span>';
+                document.getElementById('responseMessageDetail').textContent = elsyResponse.customMessage || "She couldn't make it";
+                document.getElementById('responseDateDetail').textContent = date.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('responseTimeDetail').textContent = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            }
         }
         
-        responseTime.innerHTML = `Response received: ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        if (responseTime) {
+            responseTime.innerHTML = `Response received: ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }
     } else {
-        responseStatus.innerHTML = `
-            <p>Elsy hasn't responded yet. Check back after she visits the invitation page!</p>
-            <p style="margin-top: 10px; font-size: 1rem; color: #666;">
-                <i class="fas fa-info-circle"></i> She can leave a personal message when she responds!
-            </p>
-        `;
-        responseMessage.style.display = 'none';
-        responseDetails.style.display = 'none';
+        if (responseStatus) {
+            responseStatus.innerHTML = `
+                <p>Elsy hasn't responded yet. Check back after she visits the invitation page!</p>
+                <p style="margin-top: 10px; font-size: 1rem; color: #666;">
+                    <i class="fas fa-info-circle"></i> She can leave a personal message when she responds!
+                </p>
+            `;
+        }
+        if (responseMessage) responseMessage.style.display = 'none';
+        if (responseDetails) responseDetails.style.display = 'none';
     }
     
     // Animate the check button
     const checkBtn = document.querySelector('.check-status-btn');
-    checkBtn.innerHTML = '<i class="fas fa-check"></i> Status Updated';
-    checkBtn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-    
-    setTimeout(() => {
-        checkBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Check Response Status';
-        checkBtn.style.background = 'linear-gradient(135deg, #1976D2, #0D47A1)';
-    }, 2000);
+    if (checkBtn) {
+        checkBtn.innerHTML = '<i class="fas fa-check"></i> Status Updated';
+        checkBtn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+        
+        setTimeout(() => {
+            checkBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Check Response Status';
+            checkBtn.style.background = 'linear-gradient(135deg, #1976D2, #0D47A1)';
+        }, 2000);
+    }
     
     playNotificationSound();
 }
@@ -648,12 +665,19 @@ function setupSecretActivation() {
     const secretActivation = document.getElementById('secretActivation');
     const clickCounter = document.getElementById('clickCounter');
     
+    if (!secretActivation) {
+        console.log("Secret activation button not found");
+        return;
+    }
+    
     secretActivation.addEventListener('click', (e) => {
         e.preventDefault();
         clickCount++;
         
-        clickCounter.textContent = clickCount;
-        clickCounter.style.display = 'flex';
+        if (clickCounter) {
+            clickCounter.textContent = clickCount;
+            clickCounter.style.display = 'flex';
+        }
         
         createMiniHeartEffect(e.clientX, e.clientY);
         playNotificationSound();
@@ -672,7 +696,9 @@ function setupSecretActivation() {
             clearTimeout(window.clickResetTimer);
             window.clickResetTimer = setTimeout(() => {
                 clickCount = 0;
-                clickCounter.style.display = 'none';
+                if (clickCounter) {
+                    clickCounter.style.display = 'none';
+                }
             }, 3000);
         }
     });
@@ -680,29 +706,48 @@ function setupSecretActivation() {
 
 function unlockResponseTracker() {
     responseUnlocked = true;
-    localStorage.setItem('responseTrackerUnlocked', 'true');
+    
+    try {
+        localStorage.setItem('responseTrackerUnlocked', 'true');
+    } catch (error) {
+        console.log("Could not save to localStorage");
+    }
     
     // Show the response page and navigation button
-    document.getElementById('responseNavBtn').style.display = 'inline-flex';
+    const responseNavBtn = document.getElementById('responseNavBtn');
+    if (responseNavBtn) {
+        responseNavBtn.style.display = 'inline-flex';
+    }
     
     // Show unlock animation
     const unlockAnimation = document.getElementById('secretUnlockAnimation');
-    unlockAnimation.style.display = 'flex';
+    if (unlockAnimation) {
+        unlockAnimation.style.display = 'flex';
+    }
     
     playNotificationSound();
     createUnlockCelebration();
     
     setTimeout(() => {
-        unlockAnimation.style.display = 'none';
+        if (unlockAnimation) {
+            unlockAnimation.style.display = 'none';
+        }
         showNotification("Response Tracker unlocked! Check the navigation! 🔓");
     }, 3000);
 }
 
 function checkIfUnlocked() {
-    const isUnlocked = localStorage.getItem('responseTrackerUnlocked');
-    if (isUnlocked === 'true') {
-        responseUnlocked = true;
-        document.getElementById('responseNavBtn').style.display = 'inline-flex';
+    try {
+        const isUnlocked = localStorage.getItem('responseTrackerUnlocked');
+        if (isUnlocked === 'true') {
+            responseUnlocked = true;
+            const responseNavBtn = document.getElementById('responseNavBtn');
+            if (responseNavBtn) {
+                responseNavBtn.style.display = 'inline-flex';
+            }
+        }
+    } catch (error) {
+        console.log("Could not check unlock status");
     }
 }
 
@@ -771,13 +816,21 @@ function changePage(pageId) {
 function generateLoveMessage() {
     const randomIndex = Math.floor(Math.random() * loveMessages.length);
     const message = loveMessages[randomIndex];
-    document.getElementById('loveMessageText').textContent = message;
+    const messageElement = document.getElementById('loveMessageText');
+    
+    if (messageElement) {
+        messageElement.textContent = message;
+    }
+    
     createHeartEffect();
     playNotificationSound();
 }
 
 function sendLoveText() {
-    const message = document.getElementById('loveMessageText').textContent;
+    const messageElement = document.getElementById('loveMessageText');
+    if (!messageElement) return;
+    
+    const message = messageElement.textContent;
     const textToCopy = `💌 For Lumumba: ${message} - Love, Elsy 💖`;
     
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -815,9 +868,16 @@ function fallbackCopy(text) {
 // SECRET MESSAGE
 // ==============================================
 function checkPassword() {
-    const password = document.getElementById('secretPassword').value;
+    const passwordInput = document.getElementById('secretPassword');
     const secretMessage = document.getElementById('secretMessage');
     const secretMessageText = document.getElementById('secretMessageText');
+    
+    if (!passwordInput || !secretMessage || !secretMessageText) {
+        console.log("Password elements not found");
+        return;
+    }
+    
+    const password = passwordInput.value;
     
     // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE!
     if (password === "0214" || password === "1234") { // CHANGE "0214" TO YOUR DATE!
@@ -826,7 +886,7 @@ function checkPassword() {
         createHeartEffect();
         playNotificationSound();
         
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 5; i++) {
             setTimeout(() => createHeartEffect(), i * 100);
         }
     } else {
@@ -838,96 +898,80 @@ function checkPassword() {
 // VISUAL EFFECTS
 // ==============================================
 function createHeartEffect() {
-    const heart = document.createElement('div');
-    heart.innerHTML = '❤️';
-    heart.style.position = 'fixed';
-    heart.style.fontSize = '2.2rem';
-    heart.style.color = '#d32f2f';
-    heart.style.zIndex = '10000';
-    heart.style.left = `${Math.random() * 80 + 10}%`;
-    heart.style.top = `${Math.random() * 80 + 10}%`;
-    heart.style.pointerEvents = 'none';
-    
-    document.body.appendChild(heart);
-    
-    const animation = heart.animate([
-        { transform: 'translateY(0) scale(1)', opacity: 1 },
-        { transform: 'translateY(-120px) scale(1.6)', opacity: 0 }
-    ], {
-        duration: 1800,
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-    });
-    
-    animation.onfinish = () => {
-        if (document.body.contains(heart)) {
-            document.body.removeChild(heart);
-        }
-    };
+    try {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.fontSize = '2.2rem';
+        heart.style.color = '#d32f2f';
+        heart.style.zIndex = '10000';
+        heart.style.left = `${Math.random() * 80 + 10}%`;
+        heart.style.top = `${Math.random() * 80 + 10}%`;
+        heart.style.pointerEvents = 'none';
+        
+        document.body.appendChild(heart);
+        
+        const animation = heart.animate([
+            { transform: 'translateY(0) scale(1)', opacity: 1 },
+            { transform: 'translateY(-120px) scale(1.6)', opacity: 0 }
+        ], {
+            duration: 1800,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+        
+        animation.onfinish = () => {
+            if (document.body.contains(heart)) {
+                document.body.removeChild(heart);
+            }
+        };
+    } catch (error) {
+        console.log("Could not create heart effect");
+    }
 }
 
 function createMiniHeartEffect(x, y) {
-    const heart = document.createElement('div');
-    heart.innerHTML = '❤️';
-    heart.style.position = 'fixed';
-    heart.style.fontSize = '1.6rem';
-    heart.style.color = '#d32f2f';
-    heart.style.zIndex = '10000';
-    heart.style.left = `${x}px`;
-    heart.style.top = `${y}px`;
-    heart.style.transform = 'translate(-50%, -50%)';
-    heart.style.pointerEvents = 'none';
-    
-    document.body.appendChild(heart);
-    
-    const animation = heart.animate([
-        { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-        { transform: 'translate(-50%, -100px) scale(1.8)', opacity: 0 }
-    ], {
-        duration: 1200,
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-    });
-    
-    animation.onfinish = () => {
-        if (document.body.contains(heart)) {
-            document.body.removeChild(heart);
-        }
-    };
+    try {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.fontSize = '1.6rem';
+        heart.style.color = '#d32f2f';
+        heart.style.zIndex = '10000';
+        heart.style.left = `${x}px`;
+        heart.style.top = `${y}px`;
+        heart.style.transform = 'translate(-50%, -50%)';
+        heart.style.pointerEvents = 'none';
+        
+        document.body.appendChild(heart);
+        
+        const animation = heart.animate([
+            { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+            { transform: 'translate(-50%, -100px) scale(1.8)', opacity: 0 }
+        ], {
+            duration: 1200,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+        
+        animation.onfinish = () => {
+            if (document.body.contains(heart)) {
+                document.body.removeChild(heart);
+            }
+        };
+    } catch (error) {
+        console.log("Could not create mini heart effect");
+    }
 }
 
 function createUnlockCelebration() {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 10; i++) {
         setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.innerHTML = '💖';
-            heart.style.position = 'fixed';
-            heart.style.fontSize = '2.2rem';
-            heart.style.color = '#d32f2f';
-            heart.style.zIndex = '10000';
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.top = `${Math.random() * 100}%`;
-            heart.style.pointerEvents = 'none';
-            
-            document.body.appendChild(heart);
-            
-            const anim = heart.animate([
-                { transform: 'translateY(0) scale(1)', opacity: 1 },
-                { transform: 'translateY(-200px) scale(2.2)', opacity: 0 }
-            ], {
-                duration: 2200,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-            });
-            
-            anim.onfinish = () => {
-                if (document.body.contains(heart)) {
-                    document.body.removeChild(heart);
-                }
-            };
+            createHeartEffect();
         }, i * 100);
     }
 }
 
 function createCelebrationEffect() {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 8; i++) {
         setTimeout(() => {
             createHeartEffect();
         }, i * 100);
@@ -935,19 +979,25 @@ function createCelebrationEffect() {
 }
 
 function createFloatingHearts() {
-    const floatingHeartsContainer = document.getElementById('floatingHearts');
-    const heartCount = window.innerWidth < 768 ? 15 : 25;
-    
-    for (let i = 0; i < heartCount; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('floating-heart');
-        heart.innerHTML = '❤️';
-        heart.style.left = `${Math.random() * 100}%`;
-        heart.style.animationDuration = `${Math.random() * 20 + 15}s`;
-        heart.style.animationDelay = `${Math.random() * 10}s`;
-        heart.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
-        heart.style.opacity = `${Math.random() * 0.3 + 0.1}`;
-        floatingHeartsContainer.appendChild(heart);
+    try {
+        const floatingHeartsContainer = document.getElementById('floatingHearts');
+        if (!floatingHeartsContainer) return;
+        
+        const heartCount = window.innerWidth < 768 ? 10 : 15;
+        
+        for (let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDuration = `${Math.random() * 20 + 15}s`;
+            heart.style.animationDelay = `${Math.random() * 10}s`;
+            heart.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+            heart.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+            floatingHeartsContainer.appendChild(heart);
+        }
+    } catch (error) {
+        console.log("Could not create floating hearts");
     }
 }
 
@@ -955,23 +1005,50 @@ function createFloatingHearts() {
 // NOTIFICATION SYSTEM
 // ==============================================
 function showNotification(message) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.classList.add('show');
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
+    try {
+        const notification = document.getElementById('notification');
+        if (!notification) return;
+        
+        notification.textContent = message;
+        notification.style.display = 'block';
+        notification.classList.add('show');
+        
         setTimeout(() => {
-            notification.style.display = 'none';
-        }, 500);
-    }, 3000);
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }, 3000);
+    } catch (error) {
+        console.log("Could not show notification");
+    }
 }
 
 // ==============================================
 // START EVERYTHING
 // ==============================================
 window.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM loaded, starting cinematic intro...");
     createCinematicIntro();
-    setupMediaModal();
 });
 
+// If there's an error, skip to main content
+window.addEventListener('error', function(e) {
+    console.error("Page error:", e);
+    // Skip to main content
+    document.getElementById('cinematicIntro')?.style.display = 'none';
+    document.getElementById('loadingScreen')?.style.display = 'none';
+    document.getElementById('websiteContent').style.display = 'block';
+    initializeEverything();
+});
+
+// Fallback if loading takes too long
+setTimeout(() => {
+    if (document.getElementById('websiteContent').style.display === 'none') {
+        console.log("Loading timeout, showing content directly");
+        document.getElementById('cinematicIntro')?.style.display = 'none';
+        document.getElementById('loadingScreen')?.style.display = 'none';
+        document.getElementById('websiteContent').style.display = 'block';
+        initializeEverything();
+    }
+}, 10000); // 10 second timeout
