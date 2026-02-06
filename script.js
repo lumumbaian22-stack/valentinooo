@@ -193,7 +193,7 @@ let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
 function initializeMusicPlayer() {
-    backgroundMusic.volume = 0.5;
+    backgroundMusic.volume = 10;
     
     const musicPlayer = document.getElementById('musicPlayer');
     const playIcon = musicPlayer.querySelector('.fa-play');
@@ -1062,5 +1062,6 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
 
 
