@@ -660,7 +660,7 @@ body {
 
 .memory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     margin: 3rem 0;
 }
@@ -1319,7 +1319,7 @@ body {
 }
 
 /* =========================================== */
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE DESIGN - MOBILE FRIENDLY */
 /* =========================================== */
 @media (max-width: 768px) {
     .container { padding: 0 15px; }
@@ -1348,6 +1348,8 @@ body {
     .music-player, .secret-activation { top: 20px; width: 55px; height: 55px; }
     .secret-emoji { font-size: 1.8rem; }
     .music-icon { font-size: 1.6rem; }
+    .media-content { height: 220px; }
+    .password-input { font-size: 1.1rem; padding: 15px 20px; }
 }
 
 @media (max-width: 480px) {
@@ -1360,8 +1362,36 @@ body {
     .nav-btn span { display: none; }
     .nav-btn i { font-size: 1.2rem; margin: 0; }
     .memory-card { padding: 25px 20px; }
-    .media-content { height: 220px; }
-    .password-input { font-size: 1.1rem; padding: 15px; }
+    .media-content { height: 200px; }
+    .music-player, .secret-activation { top: 15px; width: 50px; height: 50px; }
+    .secret-emoji { font-size: 1.6rem; }
+    .music-icon { font-size: 1.4rem; }
+    .intro-progress-container { width: 250px; }
+    .loading-progress-container { width: 280px; }
+}
+
+@media (max-width: 360px) {
+    .intro-title { font-size: 2.4rem; }
+    .names { font-size: 2.4rem; }
+    .section-title { font-size: 2rem; }
+    .love-btn { font-size: 1rem; padding: 14px 25px; }
+    .media-content { height: 180px; }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .love-btn, .nav-btn, .rsvp-btn, .check-status-btn {
+        min-height: 48px; /* Minimum touch target size */
+    }
+    
+    .music-player, .secret-activation {
+        min-width: 56px;
+        min-height: 56px;
+    }
+    
+    .nav-btn {
+        padding: 16px 20px; /* Larger touch targets */
+    }
 }
 
 @media (min-width: 1200px) {
@@ -1379,10 +1409,4 @@ body {
 
 .mt-3 {
     margin-top: 1.5rem;
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
