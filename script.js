@@ -2,9 +2,10 @@
 // ELSY & LUMUMBA'S VALENTINE WEBSITE
 // ==============================================
 // Lumumba: TO ADD YOUR PHOTOS & VIDEOS:
-// 1. Replace the placeholder URLs in mediaGallery array with YOUR actual photo/video URLs
-// 2. Update the captions with your special memories
-// 3. Change the secret password to your actual first date
+// 1. Find the "mediaGallery" array below (around line 50-150)
+// 2. Replace the placeholder URLs with YOUR actual photo/video URLs
+// 3. Update the captions with your special memories
+// 4. Change the secret password to your actual first date
 // ==============================================
 
 // Initialize response tracking
@@ -41,40 +42,26 @@ let mediaGallery = [
     {
         id: 3,
         type: "photo",
-        src: "media/new_image_2.jpeg",
+        src: "media/ninth_image.jpeg",
         caption: "Our first anniversary dinner - you took my breath away"
     },
     {
         id: 4,
         type: "video",
         src: "media/fourth_video.mp4",
-        caption: "That fun day at the fair - you winning me that teddy bear",
-        thumbnail: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop"
+        caption: "That fun day at the fair - you winning me that teddy bear"
     },
     {
         id: 5,
         type: "photo",
-        src: "media/ninth_image.jpeg",
+        src: "media/new_image_2.jpeg",
         caption: "Our weekend getaway - just you, me, and endless conversations"
     },
     {
         id: 6,
         type: "video",
         src: "media/new_video_3.mp4",
-        caption: "Walking hand in hand on the beach at sunset",
-        thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&h=600&fit=crop"
-    },
-    {
-        id: 7,
-        type: "photo",
-        src: "media/new_image_2.jpeg",
-        caption: "That surprise birthday party I threw for you"
-    },
-    {
-        id: 8,
-        type: "photo",
-        src: "media/first_image.jpeg",
-        caption: "Our first Christmas together - you made it magical"
+        caption: "Walking hand in hand on the beach at sunset"
     }
 ];
 
@@ -95,62 +82,195 @@ const loveMessages = [
 ];
 
 // ==============================================
-// ROMANTIC BACKGROUND MUSIC - SIMPLIFIED
+// CINEMATIC INTRO ANIMATION
+// ==============================================
+function createCinematicIntro() {
+    const introHearts = document.getElementById('introHearts');
+    const introProgress = document.getElementById('introProgress');
+    
+    // Create floating hearts for intro
+    for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.className = 'intro-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 3}s`;
+            heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+            heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+            introHearts.appendChild(heart);
+        }, i * 100);
+    }
+    
+    // Animate title and subtitle
+    const title = document.querySelector('.intro-title');
+    const subtitle = document.querySelector('.intro-subtitle');
+    const date = document.querySelector('.intro-date');
+    
+    // Progress animation
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+        progress += 1;
+        introProgress.style.width = `${progress}%`;
+        
+        if (progress >= 20) {
+            title.style.opacity = '1';
+            title.style.transform = 'translateY(0)';
+            title.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+        }
+        
+        if (progress >= 40) {
+            subtitle.style.opacity = '1';
+            subtitle.style.transform = 'translateY(0)';
+            subtitle.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+        }
+        
+        if (progress >= 60) {
+            date.style.opacity = '1';
+            date.style.transform = 'translateY(0)';
+            date.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+        }
+        
+        if (progress >= 100) {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+                document.getElementById('cinematicIntro').style.opacity = '0';
+                document.getElementById('cinematicIntro').style.pointerEvents = 'none';
+                setTimeout(() => {
+                    document.getElementById('cinematicIntro').style.display = 'none';
+                    startLoadingScreen();
+                }, 1000);
+            }, 500);
+        }
+    }, 40);
+}
+
+// ==============================================
+// PREMIUM LOADING SCREEN
+// ==============================================
+function startLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingProgress = document.getElementById('loadingProgress');
+    const loadingText = document.getElementById('loadingText');
+    
+    // Show loading screen
+    loadingScreen.style.opacity = '1';
+    loadingScreen.style.pointerEvents = 'all';
+    
+    // Loading messages
+    const loadingMessages = [
+        "Loading Our Love Story...",
+        "Preparing Special Memories...",
+        "Setting the Romantic Mood...",
+        "Almost Ready...",
+        "Welcome to Our Love Story!"
+    ];
+    
+    // Simulate loading with progress bar
+    let progress = 0;
+    const loadingInterval = setInterval(() => {
+        progress += Math.random() * 8 + 2;
+        if (progress > 100) progress = 100;
+        loadingProgress.style.width = `${progress}%`;
+        
+        // Update loading text based on progress
+        if (progress < 20) loadingText.textContent = loadingMessages[0];
+        else if (progress < 40) loadingText.textContent = loadingMessages[1];
+        else if (progress < 60) loadingText.textContent = loadingMessages[2];
+        else if (progress < 80) loadingText.textContent = loadingMessages[3];
+        else loadingText.textContent = loadingMessages[4];
+        
+        if (progress >= 100) {
+            clearInterval(loadingInterval);
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.pointerEvents = 'none';
+                document.getElementById('websiteContent').style.display = 'block';
+                createFloatingHearts();
+                setTimeout(() => {
+                    initializeEverything();
+                }, 100);
+            }, 800);
+        }
+    }, 150);
+}
+
+// ==============================================
+// ROMANTIC BACKGROUND MUSIC - FIXED
 // ==============================================
 let backgroundMusic = document.getElementById('backgroundMusic');
 let notificationSound = document.getElementById('notificationSound');
 let isMusicPlaying = false;
 
-function startBackgroundMusic() {
-    // Set initial volume - lower for autoplay
-    backgroundMusic.volume = 0.3;
-    backgroundMusic.loop = false; // No looping as requested
+function initializeMusicPlayer() {
+    backgroundMusic.volume = 0.5;
     
     const musicPlayer = document.getElementById('musicPlayer');
+    const playIcon = musicPlayer.querySelector('.fa-play');
+    const pauseIcon = musicPlayer.querySelector('.fa-pause');
     
-    // Music toggle function
-    const toggleMusic = () => {
+    // Set initial state
+    playIcon.style.opacity = '1';
+    pauseIcon.style.opacity = '0';
+    
+    musicPlayer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
         if (isMusicPlaying) {
+            // Pause the music
             backgroundMusic.pause();
             musicPlayer.classList.remove('playing');
             musicPlayer.classList.add('paused');
+            playIcon.style.opacity = '1';
+            pauseIcon.style.opacity = '0';
             showNotification("Music paused ⏸️");
         } else {
+            // Play the music
             backgroundMusic.play()
                 .then(() => {
                     isMusicPlaying = true;
                     musicPlayer.classList.add('playing');
                     musicPlayer.classList.remove('paused');
+                    playIcon.style.opacity = '0';
+                    pauseIcon.style.opacity = '1';
                     showNotification("Music playing 🎵");
                 })
-                .catch(e => {
-                    console.log("Play error:", e);
-                    showNotification("Tap to start music 🎵");
+                .catch(error => {
+                    console.error("Error playing music:", error);
+                    showNotification("Click the button again to play music 🎵");
+                    // Try autoplay with user gesture
+                    document.addEventListener('click', function playOnClick() {
+                        backgroundMusic.play()
+                            .then(() => {
+                                isMusicPlaying = true;
+                                musicPlayer.classList.add('playing');
+                                musicPlayer.classList.remove('paused');
+                                playIcon.style.opacity = '0';
+                                pauseIcon.style.opacity = '1';
+                                showNotification("Music playing 🎵");
+                            })
+                            .catch(e => console.error("Still can't play:", e));
+                        document.removeEventListener('click', playOnClick);
+                    }, { once: true });
                 });
         }
         isMusicPlaying = !isMusicPlaying;
-    };
-    
-    // Add click event to music player
-    musicPlayer.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMusic();
     });
     
-    // Try to auto-play with a small delay
-    setTimeout(() => {
-        backgroundMusic.play()
-            .then(() => {
-                isMusicPlaying = true;
-                musicPlayer.classList.add('playing');
-                musicPlayer.classList.remove('paused');
-            })
-            .catch(e => {
-                console.log("Initial auto-play failed:", e);
-                // Show notification to click music player
-                showNotification("Click the music player to start romantic music 🎵");
-            });
-    }, 1500);
+    // Handle audio ending
+    backgroundMusic.addEventListener('ended', () => {
+        isMusicPlaying = false;
+        musicPlayer.classList.remove('playing');
+        musicPlayer.classList.add('paused');
+        playIcon.style.opacity = '1';
+        pauseIcon.style.opacity = '0';
+    });
+}
+
+function playNotificationSound() {
+    notificationSound.currentTime = 0;
+    notificationSound.volume = 0.5;
+    notificationSound.play().catch(e => console.log("Could not play notification sound"));
 }
 
 // ==============================================
@@ -162,6 +282,7 @@ function initializeEverything() {
     checkIfUnlocked();
     setupNavigation();
     initializeMediaGallery();
+    initializeMusicPlayer();
     
     // Check for saved response on load
     const savedResponse = localStorage.getItem('elsyValentineResponse');
@@ -285,14 +406,13 @@ function initializeMediaGallery() {
         if (media.type === 'photo') {
             mediaContent = `
                 <div class="media-content">
-                    <img src="${media.src}" alt="Memory photo" loading="lazy">
+                    <img src="${media.src}" alt="Memory photo" loading="lazy" onload="resizeMediaContent(this)">
                 </div>
             `;
         } else if (media.type === 'video') {
-            const thumbnail = media.thumbnail || media.src;
             mediaContent = `
                 <div class="media-content">
-                    <video preload="metadata" poster="${thumbnail}">
+                    <video preload="metadata" onloadedmetadata="resizeMediaContent(this)">
                         <source src="${media.src}" type="video/mp4">
                     </video>
                 </div>
@@ -310,6 +430,31 @@ function initializeMediaGallery() {
     });
 }
 
+// Function to properly size media content for mobile
+function resizeMediaContent(element) {
+    if (window.innerWidth <= 768) {
+        const container = element.closest('.media-content');
+        if (element.tagName === 'IMG' || element.tagName === 'VIDEO') {
+            const aspectRatio = element.videoWidth ? element.videoWidth / element.videoHeight : element.naturalWidth / element.naturalHeight;
+            const maxHeight = window.innerWidth <= 480 ? 200 : 250;
+            
+            if (aspectRatio > 1) {
+                // Landscape
+                container.style.height = 'auto';
+                element.style.height = 'auto';
+                element.style.width = '100%';
+                element.style.maxHeight = `${maxHeight}px`;
+            } else {
+                // Portrait
+                container.style.height = `${maxHeight}px`;
+                element.style.height = '100%';
+                element.style.width = 'auto';
+                element.style.maxWidth = '100%';
+            }
+        }
+    }
+}
+
 function openMediaModal(media) {
     const modal = document.getElementById('mediaModal');
     const modalContent = document.getElementById('modalContent');
@@ -322,41 +467,46 @@ function openMediaModal(media) {
         const img = document.createElement('img');
         img.src = media.src;
         img.alt = media.caption;
-        img.onload = function() {
-            // Adjust display based on image dimensions for mobile
-            const aspectRatio = this.naturalWidth / this.naturalHeight;
-            if (window.innerWidth < 768) {
-                // Mobile: full width, auto height
-                this.style.maxWidth = '100%';
-                this.style.maxHeight = '70vh';
-                this.style.width = 'auto';
-                this.style.height = 'auto';
-            } else {
-                // Desktop: adjust based on aspect ratio
-                if (aspectRatio > 1) {
-                    this.style.maxWidth = '90vw';
-                    this.style.maxHeight = '80vh';
-                } else {
-                    this.style.maxWidth = '70vw';
-                    this.style.maxHeight = '90vh';
-                }
-            }
-        };
         modalContent.appendChild(img);
     } else if (media.type === 'video') {
         const video = document.createElement('video');
         video.src = media.src;
         video.controls = true;
         video.autoplay = true;
-        video.style.maxWidth = '90vw';
-        video.style.maxHeight = '80vh';
         modalContent.appendChild(video);
     }
     
     modalCaption.textContent = media.caption;
     modal.style.display = 'flex';
     playNotificationSound();
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            const video = this.querySelector('video');
+            if (video) video.pause();
+        }
+    });
+    
+    // Close modal with escape key
+    document.addEventListener('keydown', function closeModalOnEscape(e) {
+        if (e.key === 'Escape') {
+            modal.style.display = 'none';
+            const video = modal.querySelector('video');
+            if (video) video.pause();
+            document.removeEventListener('keydown', closeModalOnEscape);
+        }
+    });
 }
+
+// Close modal button
+document.getElementById('closeModal').addEventListener('click', function() {
+    const modal = document.getElementById('mediaModal');
+    modal.style.display = 'none';
+    const video = modal.querySelector('video');
+    if (video) video.pause();
+});
 
 // ==============================================
 // RESPONSE TRACKER FUNCTIONS
@@ -498,6 +648,7 @@ function unlockResponseTracker() {
     setTimeout(() => {
         unlockAnimation.style.display = 'none';
         showNotification("Response Tracker unlocked! Check the navigation! 🔓");
+        changePage('response');
     }, 3000);
 }
 
@@ -551,7 +702,12 @@ function changePage(pageId) {
     } else if (pageId === 'response' && responseUnlocked) {
         setTimeout(() => checkResponseStatus(), 300);
     } else if (pageId === 'gallery') {
-        setTimeout(() => initializeMediaGallery(), 300);
+        setTimeout(() => {
+            // Recalculate media sizes for mobile
+            document.querySelectorAll('.media-content img, .media-content video').forEach(element => {
+                resizeMediaContent(element);
+            });
+        }, 100);
     }
     
     playNotificationSound();
@@ -613,7 +769,8 @@ function checkPassword() {
     const secretMessageText = document.getElementById('secretMessageText');
     
     // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE!
-    if (password === "0214" || password === "1234") { // CHANGE "0214" TO YOUR DATE!
+    // Replace "0214" with your actual first date in MMDD format
+    if (password === "0214") { // CHANGE "0214" TO YOUR DATE!
         secretMessage.style.display = 'block';
         secretMessageText.textContent = "Elsy, my love for you is eternal. No matter what happens, no matter where life takes us, my heart will always belong to you. This Valentine's Day is just the beginning of forever. I love you more than words could ever express. 💖 Forever yours, Lumumba";
         createHeartEffect();
@@ -750,6 +907,7 @@ function createFloatingHearts() {
 function showNotification(message) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
+    notification.style.display = 'block';
     notification.classList.add('show');
     
     setTimeout(() => {
@@ -761,36 +919,15 @@ function showNotification(message) {
 }
 
 // ==============================================
-// SETUP MEDIA MODAL
-// ==============================================
-function setupMediaModal() {
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('mediaModal').style.display = 'none';
-        const video = document.querySelector('#mediaModal video');
-        if (video) {
-            video.pause();
-        }
-    });
-    
-    document.getElementById('mediaModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.style.display = 'none';
-            const video = document.querySelector('#mediaModal video');
-            if (video) {
-                video.pause();
-            }
-        }
-    });
-}
-
-// Initialize modal on load
-document.addEventListener('DOMContentLoaded', function() {
-    setupMediaModal();
-});
-
-// ==============================================
 // START EVERYTHING
 // ==============================================
 window.addEventListener('DOMContentLoaded', () => {
     createCinematicIntro();
+});
+
+// Handle window resize for responsive media
+window.addEventListener('resize', () => {
+    document.querySelectorAll('.media-content img, .media-content video').forEach(element => {
+        resizeMediaContent(element);
+    });
 });
