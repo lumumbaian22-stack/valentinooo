@@ -1063,4 +1063,3 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
-
