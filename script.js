@@ -410,7 +410,6 @@ function initializeMediaGallery() {
         
         mediaElement.innerHTML = `
             ${mediaContent}
-            <div class="media-type">${media.type === 'photo' ? '📷 Photo' : '🎥 Video'}</div>
             <div class="media-caption">${media.caption}</div>
         `;
         
@@ -1063,4 +1062,5 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
 
