@@ -115,7 +115,7 @@
                         <i class="fas fa-lock"></i>
                         <span>Secret</span>
                     </button>
-                    <!-- HIDDEN Response Tracker Button - Only shows after activation -->
+                    <!-- HIDDEN Response Tracker Button - Only shows after unlocking -->
                     <button class="nav-btn" id="responseNavBtn" data-page="response" style="display: none;">
                         <i class="fas fa-heartbeat"></i>
                         <span>Response</span>
@@ -169,7 +169,7 @@
                                     <i class="fas fa-heart"></i>
                                     The First Time We Met
                                 </h3>
-                                <p>I remember your smile lighting up the room. I knew right then that you were someone special who would change my world. The way you laughed, the way you spoke - everything about you captivated me from that very first moment.</p>
+                                <p>I remember your smile lighting up the room. I knew right then that you were someone special who would change my world. Your eyes sparkled with kindness, and your laughter was the sweetest melody I'd ever heard.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -177,7 +177,7 @@
                                     <i class="fas fa-laugh"></i>
                                     Our First Laugh Together
                                 </h3>
-                                <p>That joke I told that made you laugh so hard you cried. Your laughter is my favorite sound in the world. I realized then that I wanted to be the reason for your happiness every single day.</p>
+                                <p>That silly joke I told that made you laugh so hard you cried. Your laughter is my favorite sound in the world. It reminds me that joy is simple when we're together.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -185,7 +185,7 @@
                                     <i class="fas fa-star"></i>
                                     The First Time I Realized
                                 </h3>
-                                <p>It hit me suddenly - I was falling in love with you. Your kindness, your intelligence, your beautiful soul captivated me completely. Every day with you felt like a blessing I didn't deserve.</p>
+                                <p>It hit me suddenly - I was falling in love with you. Your kindness, your intelligence, your beautiful soul captivated me completely. I knew then I wanted to spend my life with you.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -193,7 +193,7 @@
                                     <i class="fas fa-road"></i>
                                     Our Future Together
                                 </h3>
-                                <p>I dream of all the adventures we'll have, the challenges we'll overcome, and the love that will grow stronger every day. With you by my side, I know every day will be an adventure worth living.</p>
+                                <p>I dream of all the adventures we'll have, the challenges we'll overcome, and the love that will grow stronger every day. With you by my side, every day is a blessing.</p>
                             </div>
                             
                             <div class="memory-card">
@@ -201,16 +201,23 @@
                                     <i class="fas fa-moon"></i>
                                     Late Night Conversations
                                 </h3>
-                                <p>Those endless talks we have late into the night, sharing our dreams and fears. You understand me like no one else ever has. Those moments are pure magic.</p>
+                                <p>Those nights we stayed up talking until sunrise, sharing our dreams and fears. Your voice became my favorite sound, your thoughts my favorite topic.</p>
                             </div>
                             
                             <div class="memory-card">
                                 <h3 class="memory-title">
-                                    <i class="fas fa-hands"></i>
-                                    Your Support Means Everything
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                    Your Gentle Touch
                                 </h3>
-                                <p>Through every challenge and every victory, you've been my rock. Your belief in me gives me strength I never knew I had. With you, I feel I can conquer the world.</p>
+                                <p>The way you hold my hand makes everything right in the world. Your touch is warm, comforting, and filled with unspoken promises of forever.</p>
                             </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="love-btn" onclick="changePage('gallery')">
+                                <i class="fas fa-arrow-right"></i>
+                                See Our Memories
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -225,7 +232,7 @@
                         </p>
                         
                         <div class="gallery-grid" id="mediaGallery">
-                            <!-- Photos and videos will be dynamically added here -->
+                            <!-- Photos will be dynamically added here -->
                         </div>
                         
                         <div class="text-center mt-4">
@@ -365,8 +372,8 @@
                     </div>
                 </div>
                 
-                <!-- Page 7: Response Tracker - Hidden until activated -->
-                <div class="page" id="response" style="display: none;">
+                <!-- Page 7: Response Tracker - Hidden by default -->
+                <div class="page" id="response">
                     <div class="response-container">
                         <h2 class="section-title">Response Tracker 🔒</h2>
                         
@@ -438,9 +445,9 @@
         </div>
     </div>
 
-       <!-- Background Music - Updated to use your local file -->
+    <!-- Background Music -->
     <audio id="backgroundMusic" loop preload="auto">
-        <source src="media/background_music.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_12cc7c8c67.mp3?filename=love-song-193048.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
@@ -451,5 +458,3 @@
     <script src="script.js" defer></script>
 </body>
 </html>
-
-
