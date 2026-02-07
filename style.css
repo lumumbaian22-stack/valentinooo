@@ -1362,7 +1362,7 @@ body {
     .media-frame img,
     .media-frame video {
         max-height: 250px;
-        object-fit: contain;
+        object-fit: centre;
     }
     
     .media-caption {
@@ -1416,5 +1416,6 @@ body {
 .mt-3 {
     margin-top: 1.5rem;
 }
+
 
 
