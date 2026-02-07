@@ -890,9 +890,8 @@ function checkPassword() {
     const secretMessage = document.getElementById('secretMessage');
     const secretMessageText = document.getElementById('secretMessageText');
     
-    // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE!
-    // Replace "0214" with your actual first date in MMDD format
-    if (password === "7011") { 
+    // LUMUMBA: CHANGE THIS TO YOUR ACTUAL FIRST DATE 
+    if (password === "2326") { 
         secretMessage.style.display = 'block';
         secretMessageText.textContent = "Elsy, my love for you is eternal. No matter what happens, no matter where life takes us, my heart will always belong to you. This Valentine's Day is just the beginning of forever. I love you more than words could ever express. 💖 Forever yours, Lumumba";
         createHeartEffect();
@@ -902,7 +901,7 @@ function checkPassword() {
             setTimeout(() => createHeartEffect(), i * 100);
         }
     } else {
-        showNotification("That's not your m-pesa pin, my love. Try again! 💖");
+        showNotification("That's not your age and my age, my love. Try again! 💖");
     }
 }
 
@@ -1053,6 +1052,7 @@ window.addEventListener('resize', () => {
         resizeMediaContent(element);
     });
 });
+
 
 
 
